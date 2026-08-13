@@ -3748,6 +3748,86 @@
       "presets": {
         "name": "Purelane bundles"
       }
+    },
+    "purelane_announcement": {
+      "name": "Purelane ticker",
+      "settings": {
+        "speed": {
+          "label": "Loop duration",
+          "info": "How long one full pass of the messages takes."
+        }
+      },
+      "blocks": {
+        "message": {
+          "name": "Message",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "highlight": {
+              "label": "Highlighted text",
+              "info": "Shown in the accent colour, after the text."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane ticker"
+      }
+    },
+    "purelane_header": {
+      "name": "Purelane header",
+      "settings": {
+        "logo": {
+          "label": "Logo",
+          "info": "Optional. Replaces the default mark inside the badge."
+        },
+        "brand_name": {
+          "label": "Brand name",
+          "info": "Defaults to the store name."
+        },
+        "tagline": {
+          "label": "Tagline"
+        },
+        "menu": {
+          "label": "Menu"
+        },
+        "show_search": {
+          "label": "Show search"
+        },
+        "show_account": {
+          "label": "Show account"
+        },
+        "shrink_after": {
+          "label": "Raise header after",
+          "info": "How far down the page the header moves closer to the top."
+        },
+        "rail_header": {
+          "content": "Progress rail"
+        },
+        "show_rail": {
+          "label": "Show progress rail",
+          "info": "The dots down the right-hand edge. Shown from 1180px up."
+        }
+      },
+      "blocks": {
+        "rail_link": {
+          "name": "Rail dot",
+          "settings": {
+            "label": {
+              "label": "Label",
+              "info": "Read out by screen readers; not shown."
+            },
+            "anchor": {
+              "label": "Section anchor",
+              "info": "The target section's Anchor ID, without the #."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane header"
+      }
     }
   }
 }

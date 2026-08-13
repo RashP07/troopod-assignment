@@ -562,6 +562,9 @@
       "bundles": {
         "products": "Products",
         "per_product": "Flat {{ amount }} per product"
+      },
+      "header": {
+        "progress": "Section progress"
       }
   }
 }

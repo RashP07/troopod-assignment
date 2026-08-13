@@ -1,0 +1,253 @@
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-header.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane header.
+
+  The prototype's nav is a fixed glass pill that rises closer to the top once
+  you scroll. Everything in it comes from the platform here: the menu is a
+  link list, the cart count is `cart.item_count`, and search and account point
+  at the real routes rather than at buttons that do nothing.
+
+  The burger in the prototype has no menu behind it — there is no mobile menu
+  in the file at all. See `.pl-menu` in the stylesheet for what was built and
+  why.
+{%- endcomment -%}
+
+<purelane-header class="pl pl-header" data-pl-scroll-threshold="{{ section.settings.shrink_after }}">
+  <div class="pl-glass pl-navpill">
+    <a class="pl-brand" href="{{ routes.root_url }}">
+      <span class="pl-brand__mark">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 46 | image_tag: alt: '', loading: 'eager' }}
+        {%- else -%}
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M12 3 20.5 8v8L12 21 3.5 16V8L12 3Z" />
+            <path d="M12 12 20.5 8M12 12v9M12 12 3.5 8" />
+          </svg>
+        {%- endif -%}
+      </span>
+      <span class="pl-brand__txt">
+        <span class="pl-brand__name">{{ section.settings.brand_name | default: shop.name }}</span>
+        {%- if section.settings.tagline != blank -%}
+          <span class="pl-brand__tag">{{ section.settings.tagline }}</span>
+        {%- endif -%}
+      </span>
+    </a>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="pl-nav" aria-label="{{ 'sections.header.menu' | t }}">
+        {%- for link in section.settings.menu.links -%}
+          <a
+            href="{{ link.url }}"
+            {% if link.active %}
+              aria-current="page"
+            {% endif %}
+          >
+            {{- link.title -}}
+          </a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    <div class="pl-navtools">
+      {%- if section.settings.show_search -%}
+        <a class="pl-ico pl-ico--secondary" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_account -%}
+        <a
+          class="pl-ico pl-ico--secondary"
+          href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ routes.root_url }}{% endif %}"
+          aria-label="{{ 'customer.account.title' | t }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="8" r="3.6" />
+            <path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6" />
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a
+        class="pl-ico"
+        href="{{ routes.cart_url }}"
+        aria-label="{{ 'sections.header.cart_count' | t: count: cart.item_count }}"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M4 6h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H6.4" />
+          <circle cx="10" cy="20.5" r="1.1" />
+          <circle cx="17.5" cy="20.5" r="1.1" />
+        </svg>
+        <span class="pl-ico__count" aria-hidden="true">{{ cart.item_count }}</span>
+      </a>
+
+      {%- if section.settings.menu != blank -%}
+        <button
+          type="button"
+          class="pl-ico pl-burger"
+          data-pl-menu-toggle
+          aria-expanded="false"
+          aria-controls="pl-menu-{{ section.id }}"
+          aria-label="{{ 'sections.header.menu' | t }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.menu != blank -%}
+    <div class="pl-glass pl-menu" id="pl-menu-{{ section.id }}" data-pl-menu>
+      {%- for link in section.settings.menu.links -%}
+        <a
+          href="{{ link.url }}"
+          {% if link.active %}
+            aria-current="page"
+          {% endif %}
+        >
+          {{- link.title -}}
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</purelane-header>
+
+{%- if section.settings.show_rail and section.blocks.size > 0 -%}
+  {%- comment -%}
+    The progress rail. In the prototype this recalculated on every scroll frame
+    by walking each target's offsetTop; here it is an IntersectionObserver, and
+    the dots are real links so it is usable by keyboard rather than being pure
+    decoration.
+  {%- endcomment -%}
+  <nav class="pl pl-rail-nav" aria-label="{{ 'purelane.header.progress' | t }}" data-pl-rail>
+    {%- for block in section.blocks -%}
+      <a
+        href="#{{ block.settings.anchor | handleize }}"
+        aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+        {{ block.shopify_attributes }}
+      >
+        <span class="pl-visually-hidden">{{ block.settings.label }}</span>
+      </a>
+    {%- endfor -%}
+  </nav>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.purelane_header.name",
+  "tag": "header",
+  "class": "pl-header-host",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.purelane_header.settings.logo.label",
+      "info": "t:sections.purelane_header.settings.logo.info"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "t:sections.purelane_header.settings.brand_name.label",
+      "info": "t:sections.purelane_header.settings.brand_name.info"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "t:sections.purelane_header.settings.tagline.label",
+      "default": "Clean, simply"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:sections.purelane_header.settings.menu.label",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:sections.purelane_header.settings.show_search.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "t:sections.purelane_header.settings.show_account.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "shrink_after",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 90,
+      "label": "t:sections.purelane_header.settings.shrink_after.label",
+      "info": "t:sections.purelane_header.settings.shrink_after.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_header.settings.rail_header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rail",
+      "label": "t:sections.purelane_header.settings.show_rail.label",
+      "default": true,
+      "info": "t:sections.purelane_header.settings.show_rail.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rail_link",
+      "name": "t:sections.purelane_header.blocks.rail_link.name",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.purelane_header.blocks.rail_link.settings.label.label"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "t:sections.purelane_header.blocks.rail_link.settings.anchor.label",
+          "info": "t:sections.purelane_header.blocks.rail_link.settings.anchor.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_header.presets.name",
+      "blocks": [
+        { "type": "rail_link", "settings": { "label": "Hero", "anchor": "top" } },
+        { "type": "rail_link", "settings": { "label": "Reviews", "anchor": "reviews" } },
+        { "type": "rail_link", "settings": { "label": "Combos", "anchor": "combos" } },
+        { "type": "rail_link", "settings": { "label": "Bundles", "anchor": "bundles" } },
+        { "type": "rail_link", "settings": { "label": "Shop", "anchor": "shop" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

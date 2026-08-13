@@ -1,0 +1,81 @@
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-header.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Purelane announcement ticker.
+
+  A marquee needs its content twice to loop seamlessly; the prototype pasted the
+  four messages twice by hand. Here the blocks are rendered once per pass and
+  the whole strip is `aria-hidden`, because a scrolling ticker is decoration —
+  anything a customer must know cannot live only in here.
+{%- endcomment -%}
+
+{%- if section.blocks.size > 0 -%}
+  <div class="pl pl-ticker" aria-hidden="true">
+    <div class="pl-ticker__track" style="animation-duration: {{ section.settings.speed }}s;">
+      {%- for pass in (1..2) -%}
+        {%- for block in section.blocks -%}
+          <span {{ block.shopify_attributes }}>
+            {{- block.settings.text }} <b>{{ block.settings.highlight }}</b>
+          </span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.purelane_announcement.name",
+  "tag": "div",
+  "class": "pl-announcement-host",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "s",
+      "default": 30,
+      "label": "t:sections.purelane_announcement.settings.speed.label",
+      "info": "t:sections.purelane_announcement.settings.speed.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "t:sections.purelane_announcement.blocks.message.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.purelane_announcement.blocks.message.settings.text.label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "highlight",
+          "label": "t:sections.purelane_announcement.blocks.message.settings.highlight.label",
+          "info": "t:sections.purelane_announcement.blocks.message.settings.highlight.info",
+          "default": "on every bundle across India"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_announcement.presets.name",
+      "blocks": [
+        { "type": "message", "settings": { "text": "Free shipping", "highlight": "on every bundle across India" } },
+        { "type": "message", "settings": { "text": "100% plant-based", "highlight": "and non-toxic" } },
+        { "type": "message", "settings": { "text": "Loved by", "highlight": "30,000+ happy homes" } },
+        { "type": "message", "settings": { "text": "Buy 3", "highlight": "at flat ₹499" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
