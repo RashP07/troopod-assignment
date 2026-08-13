@@ -16,6 +16,13 @@ Troopod AI Product Engineer build assignment.
 | Reviews rail | `sections/purelane-reviews.liquid` | `#reviews` |
 | Backdrop | `sections/purelane-backdrop.liquid` | the page-wide gradient every section sits on |
 
+Bonus scope, beyond the five:
+
+| Section | File | Prototype |
+|---|---|---|
+| Ticker | `sections/purelane-announcement.liquid` | `.ticker` |
+| Header + progress rail | `sections/purelane-header.liquid` | `#hdr`, `.rail` |
+
 Shared pieces:
 
 ```
@@ -27,12 +34,14 @@ snippets/purelane-price.liquid               price + derived discount
 snippets/purelane-icon.liquid                the five repeated SVGs
 assets/purelane-base.css                     tokens, type, glass, buttons, reveal
 assets/purelane-card.css                     card + price
-assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop}.css
-assets/purelane-{hero,backdrop,reveal}.js
+assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop,header}.css
+assets/purelane-{hero,backdrop,header,reveal}.js
 ```
 
-Every Purelane file is prefixed. Nothing in Dawn is modified except
-`templates/index.json` and additive entries in the two locale files.
+Every Purelane file is prefixed. Nothing in Dawn is modified except `templates/index.json`,
+`sections/header-group.json`, and additive entries in the two locale files.
+Dawn's own `header.liquid` and `announcement-bar.liquid` are left in place,
+unused, so the stock header is one setting away.
 
 ## Docs
 
