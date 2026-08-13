@@ -1,0 +1,105 @@
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-backdrop.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-backdrop.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane backdrop.
+
+  Every Purelane section is glass sitting on a shared, page-wide gradient. In
+  the prototype that gradient lived in the page chrome; as a Shopify theme it
+  has to be a section a merchant adds once, so it stays configurable and can be
+  removed without touching code.
+
+  Sections declare which of the four depth "scenes" they belong to via their
+  own Scene setting; this backdrop crossfades between them as those sections
+  cross the middle of the viewport.
+
+  It is entirely decorative: `aria-hidden`, no focusable content, and it drops
+  its animated layers under `prefers-reduced-motion`.
+{%- endcomment -%}
+
+{%- liquid
+  assign bubbles = '91.9%|6.7px|21.5s|19.0s|-11px,43.4%|5.7px|26.8s|16.1s|-11px,96.6%|6.2px|13.7s|10.3s|38px,6.0%|3.6px|24.4s|10.6s|3px,70.3%|3.3px|20.9s|9.2s|-39px,67.7%|4.0px|27.0s|16.5s|-5px,2.1%|7.1px|22.0s|3.1s|-37px,69.4%|8.1px|21.9s|10.7s|-24px,64.1%|8.2px|17.3s|9.0s|2px,21.8%|7.1px|15.7s|18.4s|-13px,61.9%|6.6px|26.3s|7.2s|-23px,45.9%|8.9px|24.3s|7.2s|20px,52.5%|3.3px|20.2s|19.6s|-31px,11.1%|7.9px|20.4s|10.8s|-40px,7.6%|6.4px|19.5s|0.2s|-26px,18.6%|9.0px|24.5s|8.7s|13px' | split: ','
+-%}
+
+<div class="pl-scenes" id="pl-scenes-{{ section.id }}" data-pl-backdrop data-pl-depth="1" aria-hidden="true">
+  <div class="pl-scene pl-scene--1 pl-is-on"></div>
+  <div class="pl-scene pl-scene--2"></div>
+  <div class="pl-scene pl-scene--3"></div>
+  <div class="pl-scene pl-scene--4"></div>
+
+  {%- if section.settings.show_water -%}
+    <div class="pl-water" data-pl-water>
+      {%- comment -%}
+        These four layers were inline SVG in the prototype and shared the
+        gradient/filter ids `cg`, `wf` and `wf2` between two of them — SVG ids
+        are document-global, so the layers were cross-referencing each other's
+        defs. As separate asset files each one keeps its own ids, and the
+        browser can cache them instead of re-parsing ~20 KB of markup.
+      {%- endcomment -%}
+      <div class="pl-wl pl-wl--a">
+        <img src="{{ 'purelane-water-a.svg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1800" height="1100">
+      </div>
+      <div class="pl-wl pl-wl--b">
+        <img src="{{ 'purelane-water-b.svg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1800" height="1100">
+      </div>
+      <div class="pl-wl pl-wl--c">
+        <img src="{{ 'purelane-water-c.svg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1800" height="1100">
+      </div>
+      <div class="pl-wl pl-wl--s">
+        <img src="{{ 'purelane-water-s.svg' | asset_url }}" alt="" loading="lazy" decoding="async" width="1800" height="1100">
+      </div>
+
+      {%- if section.settings.show_bubbles -%}
+        <div class="pl-bub">
+          {%- for bubble in bubbles limit: section.settings.bubble_count -%}
+            {%- assign parts = bubble | split: '|' -%}
+            <span style="--pl-x: {{ parts[0] }}; --pl-s: {{ parts[1] }}; --pl-dur: {{ parts[2] }}; --pl-dly: {{ parts[3] }}; --pl-drift: {{ parts[4] }};"></span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="pl-vig"></div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_backdrop.name",
+  "tag": "div",
+  "class": "pl-backdrop-host",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.purelane_backdrop.settings.intro.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_water",
+      "label": "t:sections.purelane_backdrop.settings.show_water.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bubbles",
+      "label": "t:sections.purelane_backdrop.settings.show_bubbles.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "bubble_count",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "default": 16,
+      "label": "t:sections.purelane_backdrop.settings.bubble_count.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_backdrop.presets.name"
+    }
+  ]
+}
+{% endschema %}

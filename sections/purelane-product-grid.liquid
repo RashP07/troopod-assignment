@@ -15,7 +15,7 @@
   endcase
 -%}
 
-<div class="pl pl-sec" id="{{ anchor }}">
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
   <div class="pl-wrap">
     {%- if section.settings.kicker != blank or section.settings.heading != blank -%}
       <div class="pl-head pl-rv">
@@ -41,12 +41,8 @@
       {%- if section.settings.source == 'collection' -%}
         {%- for product in products limit: limit -%}
           {%- assign delay = forloop.index0 | modulo: 4 -%}
-          {%- render 'purelane-product-card',
-            product: product,
-            reveal_delay: delay,
-            form_id: 'pl-grid-form-' | append: section.id | append: '-' | append: forloop.index,
-            loading: 'lazy'
-          -%}
+          {%- capture form_id -%}pl-grid-{{ section.id }}-{{ forloop.index }}{%- endcapture -%}
+          {%- render 'purelane-product-card', product: product, reveal_delay: delay, form_id: form_id, loading: 'lazy' -%}
         {%- else -%}
           {%- comment -%}
             No collection picked yet, or the collection is empty. Dawn's
@@ -60,12 +56,13 @@
       {%- else -%}
         {%- for block in section.blocks -%}
           {%- assign delay = forloop.index0 | modulo: 4 -%}
+          {%- capture form_id -%}pl-grid-{{ section.id }}-{{ block.id }}{%- endcapture -%}
           {%- if block.settings.product != blank -%}
             {%- render 'purelane-product-card',
               product: block.settings.product,
               badge: block.settings.badge,
               reveal_delay: delay,
-              form_id: 'pl-grid-form-' | append: section.id | append: '-' | append: block.id,
+              form_id: form_id,
               loading: 'lazy',
               block: block
             -%}
@@ -147,6 +144,16 @@
     {
       "type": "header",
       "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
     },
     {
       "type": "text",

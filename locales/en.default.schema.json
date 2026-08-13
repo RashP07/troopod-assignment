@@ -3411,6 +3411,10 @@
         "anchor_header": {
           "content": "Anchor"
         },
+        "scene": {
+          "label": "Scene",
+          "info": "Which of the backdrop's four depth gradients shows while this section is on screen."
+        },
         "anchor": {
           "label": "Anchor ID",
           "info": "Used by in-page links, e.g. a \"Shop now\" button pointing at #shop."
@@ -3456,6 +3460,26 @@
       },
       "presets": {
         "name": "Purelane product grid"
+      }
+    },
+    "purelane_backdrop": {
+      "name": "Purelane backdrop",
+      "settings": {
+        "intro": {
+          "content": "Draws the shared gradient behind every Purelane section. Add it once, anywhere on the page. Each section chooses its depth with its own Scene setting."
+        },
+        "show_water": {
+          "label": "Show water light layers"
+        },
+        "show_bubbles": {
+          "label": "Show bubbles"
+        },
+        "bubble_count": {
+          "label": "Bubble count"
+        }
+      },
+      "presets": {
+        "name": "Purelane backdrop"
       }
     }
   }
