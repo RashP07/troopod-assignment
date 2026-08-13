@@ -3396,6 +3396,67 @@
           "label": "Open by default"
         }
       }
+    },
+    "purelane_shared": {
+      "settings": {
+        "kicker": {
+          "label": "Kicker"
+        },
+        "heading": {
+          "label": "Heading"
+        },
+        "show_rule": {
+          "label": "Show leaf divider"
+        },
+        "anchor_header": {
+          "content": "Anchor"
+        },
+        "anchor": {
+          "label": "Anchor ID",
+          "info": "Used by in-page links, e.g. a \"Shop now\" button pointing at #shop."
+        }
+      }
+    },
+    "purelane_product_grid": {
+      "name": "Purelane product grid",
+      "settings": {
+        "products_header": {
+          "content": "Products"
+        },
+        "source": {
+          "label": "Source",
+          "info": "A collection stays current on its own. Pick products manually when the order matters.",
+          "options__collection": {
+            "label": "Collection"
+          },
+          "options__blocks": {
+            "label": "Selected products"
+          }
+        },
+        "collection": {
+          "label": "Collection"
+        },
+        "products_to_show": {
+          "label": "Products to show"
+        }
+      },
+      "blocks": {
+        "product": {
+          "name": "Product",
+          "settings": {
+            "product": {
+              "label": "Product"
+            },
+            "badge": {
+              "label": "Badge",
+              "info": "Overrides the product's Badge metafield for this card only."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane product grid"
+      }
     }
   }
 }

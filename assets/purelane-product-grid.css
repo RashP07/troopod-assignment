@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Purelane — product grid ("shelf")
+   Two columns from 375px, four from 860px, matching the prototype.
+   ========================================================================== */
+
+.pl-shelf {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 860px) {
+  .pl-shelf {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pl-card--placeholder .pl-card__img {
+  opacity: 0.5;
+}
+
+.pl-card--placeholder .pl-card__img svg,
+.pl-card--placeholder svg.pl-card__img {
+  height: 122px;
+  width: auto;
+  fill: rgba(75, 58, 143, 0.35);
+}
+
+@media (max-width: 760px) {
+  .pl-card--placeholder .pl-card__img svg,
+  .pl-card--placeholder svg.pl-card__img {
+    height: 108px;
+  }
+}

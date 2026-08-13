@@ -19,6 +19,9 @@
     sizes        - responsive `sizes` attribute, defaults to the grid case
     form_id      - unique id for the add-to-cart form; required when the same
                    product can appear more than once on a page
+    block        - the section block this card came from, when it came from
+                   one; its `shopify_attributes` go on the card itself so the
+                   theme editor highlights the card and not a wrapper
 
   Edge cases the seeded catalogue exercises deliberately:
     - no image      -> a placeholder box of the same aspect ratio (no CLS)
@@ -46,6 +49,7 @@
   {% if product.available == false %}
     data-pl-sold-out
   {% endif %}
+  {{ block.shopify_attributes }}
 >
   <a class="pl-card__shot" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
     {%- if badge_text != blank and product.available -%}

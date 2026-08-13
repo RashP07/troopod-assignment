@@ -1,0 +1,38 @@
+{%- comment -%}
+  Onboarding placeholder card.
+
+  Rendered when a merchant has added the section but not yet picked products,
+  so the theme editor shows the real layout instead of an empty box. Uses
+  Dawn's own placeholder SVGs, and is hidden from assistive tech because it
+  represents nothing.
+
+  Accepts:
+    index - 1-based position, used to vary the placeholder art
+    block - section block, when the placeholder stands in for one
+{%- endcomment -%}
+
+{%- liquid
+  assign delay = index | minus: 1 | modulo: 4
+  assign art_index = index | minus: 1 | modulo: 4 | plus: 1
+  assign placeholder_image = 'product-apparel-' | append: art_index
+-%}
+
+<article class="pl-glass pl-card pl-card--placeholder pl-rv pl-rv-d{{ delay }}" {{ block.shopify_attributes }}>
+  <div class="pl-card__shot" aria-hidden="true">
+    {{ placeholder_image | placeholder_svg_tag: 'pl-pimg pl-card__img' }}
+  </div>
+
+  <h3 class="pl-card__title">{{ 'onboarding.product_title' | t }}</h3>
+
+  <div class="pl-card__rate">
+    <b aria-hidden="true">★ 4.8</b>
+  </div>
+
+  <div class="pl-price pl-price--card">
+    <strong class="pl-price__now">{{ 1999 | money }}</strong>
+  </div>
+
+  <button type="button" class="pl-btn pl-btn--ghost pl-btn--sm pl-btn--block" disabled>
+    {{ 'products.product.add_to_cart' | t }}
+  </button>
+</article>
