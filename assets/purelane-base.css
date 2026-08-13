@@ -1,0 +1,543 @@
+/* ==========================================================================
+   Purelane — shared foundation
+   --------------------------------------------------------------------------
+   The prototype shipped two full <style> blocks: a dark "V1" (52 KB) and a
+   "V2 — brand colours (light)" block (10 KB) that re-declared :root and
+   re-skinned every component on top of it. Only V2 is ever visible, so the
+   two are flattened here into one light stylesheet and the dead dark rules
+   are dropped.
+
+   Everything is namespaced `pl-` and scoped under `.pl` because Dawn already
+   owns generic class names (.card, .badge, .price, .rule, .button) — the
+   prototype's unprefixed names would collide in both directions.
+   ========================================================================== */
+
+/* ---------- fonts: self-hosted, was a render-blocking Google Fonts <link> --- */
+@font-face {
+  font-family: 'Purelane Display';
+  src: url('purelane-outfit-latin.woff2') format('woff2');
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Purelane Display';
+  src: url('purelane-outfit-latin-ext.woff2') format('woff2');
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Purelane Text';
+  src: url('purelane-inter-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Purelane Text';
+  src: url('purelane-inter-latin-ext.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- tokens ---------- */
+:root {
+  --pl-ink: #f4f0fb;
+  --pl-deep: #e2daf3;
+  --pl-brand: #4b3a8f;
+  --pl-brand-lt: #6b55b8;
+  --pl-paper: #241a3d; /* body ink */
+  --pl-paper-2: rgba(36, 26, 61, 0.78);
+  --pl-paper-3: rgba(36, 26, 61, 0.56);
+  --pl-accent: #b8701c;
+  --pl-accent-2: #c9761d;
+  --pl-leaf: #4f7d10; /* icon + tick green */
+  --pl-leaf-lt: #7a9c1e; /* star rating green */
+  --pl-teal: #00706a;
+  --pl-teal-deep: #004b46;
+  --pl-teal-ink: #f4fdf6;
+  --pl-ghost-ink: #01423b;
+  --pl-surface: #17102b; /* headings */
+
+  --pl-g-bg: linear-gradient(158deg, rgba(255, 255, 255, 0.8), rgba(236, 230, 247, 0.56) 58%, rgba(222, 212, 240, 0.5));
+  --pl-g-line: rgba(75, 58, 143, 0.16);
+  --pl-g-shadow: 0 22px 54px rgba(58, 44, 112, 0.13);
+  --pl-g-inset: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+
+  --pl-r: 26px;
+  --pl-r-sm: 16px;
+  --pl-maxw: 1180px;
+  --pl-sec-y: 34px; /* vertical rhythm between sections */
+  --pl-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --pl-sec-y: 22px;
+  }
+}
+
+/* ---------- scoped reset ----------
+   The prototype used a global `*{margin:0;padding:0}`. Scoping it to `.pl`
+   keeps Dawn's own sections untouched when both render on one page. */
+.pl,
+.pl *,
+.pl *::before,
+.pl *::after {
+  box-sizing: border-box;
+}
+
+.pl {
+  position: relative;
+  z-index: 2;
+  font-family: 'Purelane Text', 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--pl-paper);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pl h1,
+.pl h2,
+.pl h3,
+.pl h4,
+.pl h5,
+.pl h6,
+.pl p,
+.pl figure,
+.pl ul,
+.pl ol {
+  margin: 0;
+  padding: 0;
+  letter-spacing: normal;
+}
+
+.pl ul,
+.pl ol {
+  list-style: none;
+}
+
+.pl img,
+.pl svg {
+  display: block;
+  max-width: 100%;
+}
+
+.pl a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pl button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+.pl :focus-visible {
+  outline: 2px solid var(--pl-leaf);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- layout shell ---------- */
+.pl-wrap {
+  max-width: var(--pl-maxw);
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+.pl-sec {
+  position: relative;
+  padding: var(--pl-sec-y) 0;
+}
+
+.pl-sec-pad {
+  padding: clamp(26px, 3.4vw, 40px);
+}
+
+@media (max-width: 760px) {
+  .pl-sec-pad {
+    padding: 22px 18px;
+  }
+}
+
+/* ---------- type ---------- */
+.pl-d1,
+.pl-d2,
+.pl-d3,
+.pl-d4 {
+  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.018em;
+  font-weight: 800;
+  line-height: 0.87;
+  color: var(--pl-surface);
+}
+
+.pl-d1 {
+  font-size: clamp(48px, 8.6vw, 112px);
+}
+
+.pl-d2 {
+  font-size: clamp(30px, 4.6vw, 54px);
+  line-height: 0.94;
+}
+
+.pl-d3 {
+  font-size: clamp(21px, 2.5vw, 30px);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pl-d4 {
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.14;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
+@media (max-width: 760px) {
+  .pl-d1 {
+    font-size: clamp(44px, 13.5vw, 64px);
+  }
+}
+
+.pl-accent-word {
+  color: var(--pl-accent);
+}
+
+.pl-lede {
+  font-size: clamp(15px, 1.35vw, 17.5px);
+  color: var(--pl-paper-2);
+  max-width: 44ch;
+}
+
+.pl-body-s {
+  font-size: 14.5px;
+  color: var(--pl-paper-2);
+  line-height: 1.66;
+}
+
+.pl-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pl-paper-3);
+}
+
+/* ---------- glass surfaces ---------- */
+.pl-glass {
+  background: var(--pl-g-bg);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid var(--pl-g-line);
+  border-radius: var(--pl-r);
+  box-shadow: var(--pl-g-shadow), var(--pl-g-inset);
+  position: relative;
+  overflow: hidden;
+}
+
+.pl-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.55), transparent 32%, transparent 74%, rgba(201, 118, 29, 0.06));
+}
+
+.pl-glass2 {
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.66), rgba(236, 230, 247, 0.44));
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  border: 1px solid rgba(75, 58, 143, 0.13);
+  border-radius: var(--pl-r);
+  box-shadow: 0 16px 38px rgba(58, 44, 112, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  .pl-glass {
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  .pl-glass2 {
+    backdrop-filter: blur(12px) saturate(130%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+  }
+}
+
+/* ---------- buttons ---------- */
+.pl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition: 0.35s var(--pl-ease);
+  white-space: nowrap;
+}
+
+.pl-btn svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.pl-btn--primary {
+  background: linear-gradient(135deg, var(--pl-teal), var(--pl-teal-deep));
+  color: var(--pl-teal-ink);
+  box-shadow: 0 12px 26px rgba(0, 80, 74, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.pl-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0, 80, 74, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.pl-btn--ghost {
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(75, 58, 143, 0.22);
+  color: var(--pl-ghost-ink);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pl-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.pl-btn--sm {
+  height: 38px;
+  padding: 0 18px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.pl-btn--block {
+  width: 100%;
+}
+
+/* Sold out / unavailable — the prototype had no disabled state to copy. */
+.pl-btn[disabled],
+.pl-btn[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.pl-btn[disabled]:hover,
+.pl-btn[aria-disabled='true']:hover {
+  transform: none;
+}
+
+/* ---------- ornamental rule ---------- */
+.pl-rule {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 0 0 20px;
+  max-width: 270px;
+}
+
+.pl-rule i {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(75, 58, 143, 0.34), transparent);
+}
+
+.pl-rule svg {
+  width: 16px;
+  height: 16px;
+  color: var(--pl-accent);
+  flex: 0 0 auto;
+}
+
+/* ---------- centred section head ---------- */
+.pl-head {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.pl-head .pl-d2 {
+  margin-bottom: 12px;
+}
+
+.pl-head .pl-kicker + .pl-d2 {
+  margin-top: 12px;
+}
+
+.pl-head .pl-rule {
+  margin: 0 auto;
+  justify-content: center;
+  max-width: 240px;
+}
+
+.pl-head .pl-rule i:first-child {
+  background: linear-gradient(90deg, transparent, rgba(75, 58, 143, 0.34));
+}
+
+.pl-head .pl-lede {
+  margin: 14px auto 0;
+}
+
+/* ---------- reveal on scroll ----------
+   `.pl-rv` starts hidden only once JS has confirmed it can reveal it again
+   (the `pl-rv-ready` flag is set by purelane-reveal.js). Without that flag the
+   content is plain visible, so a JS failure, an old browser, or a theme-editor
+   re-render can never leave a section blank. */
+.pl-rv-ready .pl-rv {
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(7px);
+  transition: opacity 0.95s var(--pl-ease), transform 0.95s var(--pl-ease), filter 0.95s var(--pl-ease);
+}
+
+.pl-rv-ready .pl-rv.pl-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.pl-rv-d1 {
+  transition-delay: 0.09s;
+}
+
+.pl-rv-d2 {
+  transition-delay: 0.18s;
+}
+
+.pl-rv-d3 {
+  transition-delay: 0.27s;
+}
+
+.pl-rv-d4 {
+  transition-delay: 0.36s;
+}
+
+.pl-rv-d5 {
+  transition-delay: 0.45s;
+}
+
+/* ---------- product imagery ----------
+   The prototype painted every bottle as a CSS background-image on an empty
+   <span role="img">. These are real <img> elements now, so the shared bits are
+   object-fit and a height-driven box that keeps each bottle's aspect ratio. */
+.pl-pimg {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 8px 13px rgba(0, 74, 66, 0.13));
+}
+
+.pl-pimg--placeholder {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.6), rgba(236, 230, 247, 0.42));
+  border: 1px dashed rgba(75, 58, 143, 0.24);
+  border-radius: 10px;
+  color: var(--pl-leaf);
+  display: grid;
+  place-items: center;
+  aspect-ratio: 0.64;
+  filter: none;
+}
+
+.pl-pimg--placeholder svg {
+  width: 42%;
+  height: auto;
+  opacity: 0.62;
+}
+
+/* ---------- utilities ---------- */
+.pl-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pl-rail-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--pl-paper-3);
+  margin: 14px auto 0;
+  max-width: 62ch;
+}
+
+.pl-swipecue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pl-paper-3);
+  margin-top: 2px;
+}
+
+.pl-swipecue svg {
+  width: 14px;
+  height: 14px;
+  color: var(--pl-accent);
+}
+
+/* Horizontal snap rail shared by the combos and reviews sections. */
+.pl-rail {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pl-rail::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl :where(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pl-rv-ready .pl-rv {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
