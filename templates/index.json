@@ -1,75 +1,273 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "backdrop": {
+      "type": "purelane-backdrop",
+      "settings": {
+        "show_water": true,
+        "show_bubbles": true,
+        "bubble_count": 16
+      }
+    },
+    "hero": {
+      "type": "purelane-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "promise_1": {
+          "type": "promise",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "icon": "leaf",
+            "text": "Plant\npowered",
+            "short_text": "Plant powered"
           }
         },
-        "button": {
-          "type": "buttons",
+        "promise_2": {
+          "type": "promise",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "shield",
+            "text": "Safe for\nkids & pets",
+            "short_text": "Kids & pet safe"
+          }
+        },
+        "promise_3": {
+          "type": "promise",
+          "settings": {
+            "icon": "no-chem",
+            "text": "Zero harsh\nchemicals",
+            "short_text": "Zero harsh chem"
+          }
+        },
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "label": "Single bottle",
+            "discount_as": "percent"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "label": "Any 2 products",
+            "discount_as": "amount"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "label": "Any 3 products",
+            "discount_as": "amount"
           }
         }
       },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+      "block_order": ["promise_1", "promise_2", "promise_3", "slide_1", "slide_2", "slide_3"],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "heading": "Clean\nThat\nLasts",
+        "accent_text": "Lasts",
+        "show_rule": true,
+        "lede": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
+        "cta_primary_label": "Shop now",
+        "cta_primary_link": "#shop",
+        "cta_secondary_label": "How it works",
+        "cta_secondary_link": "#how",
+        "autoplay": true,
+        "autoplay_interval": 3.8,
+        "scene": 1,
+        "anchor": "top"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "reviews": {
+      "type": "purelane-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "title": "Works like a charm",
+            "body": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "author": "Anita",
+            "context": "Laundry detergent",
+            "rating": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "title": "Best dishwash ever",
+            "body": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "author": "Priya",
+            "context": "Dishwash gel",
+            "rating": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "title": "Great product, great packaging",
+            "body": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "author": "Sunita",
+            "context": "Liquid handwash",
+            "rating": 5
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "title": "Dog friendly",
+            "body": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "author": "Rohit S.",
+            "context": "Floor cleaner",
+            "rating": 5
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "title": "Sparkling taps again",
+            "body": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "author": "Verified buyer",
+            "context": "Tap cleaner",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3", "review_4", "review_5"],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
+        "kicker": "That's what they said",
+        "show_stars": true,
+        "stat_one": "<b>4.8</b> from 8,000+ reviews",
+        "stat_two": "Loved by <b>12 lakh+</b> homes",
+        "source": "blocks",
+        "scene": 1,
+        "anchor": "reviews"
+      }
+    },
+    "combos": {
+      "type": "purelane-combos",
+      "blocks": {
+        "combo_1": {
+          "type": "combo",
+          "settings": {
+            "title": "Kitchen essentials",
+            "thumbnails": 3,
+            "flag": "Most popular",
+            "includes": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "featured": false
+          }
+        },
+        "combo_2": {
+          "type": "combo",
+          "settings": {
+            "title": "Laundry care bundle",
+            "thumbnails": 3,
+            "includes": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "featured": false
+          }
+        },
+        "combo_3": {
+          "type": "combo",
+          "settings": {
+            "title": "Complete home bundle",
+            "thumbnails": 3,
+            "flag": "Best value",
+            "save_label": "Biggest saving",
+            "includes": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "featured": true
+          }
+        },
+        "combo_4": {
+          "type": "combo",
+          "settings": {
+            "title": "Bathroom deep clean",
+            "thumbnails": 3,
+            "includes": "Includes: Toilet Cleaner, Tap Cleaner & Magic Eraser. A complete bathroom refresh in one box.",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "featured": false
+          }
+        },
+        "combo_5": {
+          "type": "combo",
+          "settings": {
+            "title": "Hard water solution kit",
+            "thumbnails": 2,
+            "includes": "Includes: Tap Cleaner & Toilet Cleaner. A quick, focused fix for hard water stains across the home.",
+            "fine_print": "Inclusive of all taxes · COD available",
+            "featured": false
+          }
+        }
+      },
+      "block_order": ["combo_1", "combo_2", "combo_3", "combo_4", "combo_5"],
+      "settings": {
+        "kicker": "Pre-built to save you money",
+        "heading": "Best selling combos",
+        "show_rule": true,
+        "lede": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own.",
+        "source": "blocks",
+        "cta_label": "Shop bundle",
+        "cta_link": "#bundles",
+        "swipe_cue": "Swipe for more combos",
+        "rail_note": "Tapping \"Shop bundle\" opens the bundle picker with these products already added. You can still swap anything before you pay.",
+        "scene": 3,
+        "anchor": "combos"
+      }
+    },
+    "bundles": {
+      "type": "purelane-bundles",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "tag": "Starter",
+            "quantity": 2,
+            "features": "Pick any two products\nFree shipping across India",
+            "highlight": false,
+            "cta_label": "Build this box",
+            "cta_link": "#shop"
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "tag": "Most popular",
+            "quantity": 3,
+            "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
+            "highlight": true,
+            "cta_label": "Build this box",
+            "cta_link": "#shop"
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "tag": "Whole home",
+            "quantity": 5,
+            "features": "Pick any five products\nEvery room in one order\nFree shipping across India",
+            "highlight": false,
+            "cta_label": "Build this box",
+            "cta_link": "#shop"
+          }
+        }
+      },
+      "block_order": ["tier_1", "tier_2", "tier_3"],
+      "settings": {
+        "kicker": "Build your bundle",
+        "heading": "One box. Every room.",
+        "lede": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way.",
+        "scene": 3,
+        "anchor": "bundles"
+      }
+    },
+    "shop": {
+      "type": "purelane-product-grid",
+      "settings": {
+        "kicker": "Bestsellers",
+        "heading": "Loved by 30,000 homes",
+        "show_rule": true,
+        "source": "collection",
         "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "scene": 3,
+        "anchor": "shop"
       }
     }
   },
-  "order": [
-    "image_banner",
-    "featured_collection"
-  ]
+  "order": ["backdrop", "hero", "reviews", "combos", "bundles", "shop"]
 }
