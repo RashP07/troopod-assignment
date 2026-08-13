@@ -1,0 +1,63 @@
+{%- comment -%}
+  Purelane review card.
+
+  Accepts either a `review` metaobject or a section `block`, so the same card
+  renders whichever source the merchant picked.
+
+  Accepts:
+    review - metaobject of type `review`
+    block  - section block with title/body/author/product/rating settings
+{%- endcomment -%}
+
+{%- liquid
+  if review != blank
+    assign title = review.title
+    assign body = review.body
+    assign author = review.author
+    assign context = review.product.value.title | default: review.context
+    assign rating = review.rating.value.rating | default: 5
+  else
+    assign title = block.settings.title
+    assign body = block.settings.body
+    assign author = block.settings.author
+    assign context = block.settings.product.title | default: block.settings.context
+    assign rating = block.settings.rating | default: 5
+  endif
+
+  assign rounded = rating | round
+  assign stars = ''
+  for i in (1..rounded)
+    assign stars = stars | append: '★'
+  endfor
+-%}
+
+<article class="pl-glass2 pl-rcard" {{ block.shopify_attributes }}>
+  {%- if rounded > 0 -%}
+    <div class="pl-rcard__stars" aria-hidden="true">{{ stars }}</div>
+    <span class="pl-visually-hidden">
+      {{- 'purelane.general.rating_label' | t: rating: rounded, max: 5 -}}
+    </span>
+  {%- endif -%}
+
+  {%- if title != blank -%}
+    {%- comment -%}
+      The prototype used <h5> here purely because it wanted small text. The
+      level now follows the document outline and the size comes from the class.
+    {%- endcomment -%}
+    <h3 class="pl-rcard__title">{{ title }}</h3>
+  {%- endif -%}
+
+  {%- if body != blank -%}
+    <p class="pl-rcard__body">{{ body }}</p>
+  {%- endif -%}
+
+  {%- if author != blank -%}
+    <div class="pl-rcard__who">
+      {%- render 'purelane-icon', icon: 'check', width: 3 -%}
+      <b>{{ author }}</b>
+      {%- if context != blank -%}
+        <span>· {{ context }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</article>

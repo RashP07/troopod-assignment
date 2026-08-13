@@ -548,6 +548,9 @@
         "go_to_slide": "Show slide {{ index }}",
         "pause": "Pause product slideshow",
         "play": "Play product slideshow"
+      },
+      "reviews": {
+        "rail_label": "Customer reviews"
       }
   }
 }

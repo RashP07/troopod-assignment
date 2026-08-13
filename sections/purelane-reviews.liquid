@@ -1,0 +1,251 @@
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-reviews.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign reviews = section.settings.reviews.value
+  assign use_metaobjects = false
+  if section.settings.source == 'metaobject' and reviews.size > 0
+    assign use_metaobjects = true
+  endif
+-%}
+
+<div class="pl pl-sec pl-revband" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  {%- if section.settings.kicker != blank or section.settings.stat_one != blank or section.settings.stat_two != blank -%}
+    <div class="pl-wrap">
+      <div class="pl-revhead pl-rv">
+        {%- if section.settings.kicker != blank -%}
+          <span class="pl-kicker">{{ section.settings.kicker }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.stat_one != blank -%}
+          <span class="pl-revhead__agg">
+            {%- if section.settings.show_stars -%}
+              <span class="pl-stars" aria-hidden="true">★★★★★</span>
+            {%- endif -%}
+            {{ section.settings.stat_one }}
+          </span>
+        {%- endif -%}
+
+        {%- if section.settings.stat_two != blank -%}
+          <span class="pl-revhead__agg">{{ section.settings.stat_two }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%}
+    A CSS marquee needs its content twice to loop seamlessly. The prototype
+    pasted all ten cards twice into the markup, so a screen reader read every
+    review twice and an edit had to be made in two places. Here the loop is
+    rendered once per pass and the second pass is hidden from assistive tech.
+  {%- endcomment -%}
+  <div class="pl-revrail pl-rv" role="region" aria-label="{{ 'purelane.reviews.rail_label' | t }}">
+    <div class="pl-revtrack">
+      {%- for pass in (1..2) -%}
+        {%- if use_metaobjects -%}
+          {%- for review in reviews -%}
+            {%- if pass == 1 -%}
+              {%- render 'purelane-review-card', review: review -%}
+            {%- else -%}
+              <div aria-hidden="true">{%- render 'purelane-review-card', review: review -%}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- if pass == 1 -%}
+              {%- render 'purelane-review-card', block: block -%}
+            {%- else -%}
+              <div aria-hidden="true">{%- render 'purelane-review-card', block: block -%}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_reviews.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.purelane_shared.settings.kicker.label",
+      "default": "That's what they said"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "t:sections.purelane_reviews.settings.show_stars.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_one",
+      "label": "t:sections.purelane_reviews.settings.stat_one.label",
+      "default": "<b>4.8</b> from 8,000+ reviews"
+    },
+    {
+      "type": "text",
+      "id": "stat_two",
+      "label": "t:sections.purelane_reviews.settings.stat_two.label",
+      "default": "Loved by <b>12 lakh+</b> homes"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_reviews.settings.reviews_header.content"
+    },
+    {
+      "type": "select",
+      "id": "source",
+      "label": "t:sections.purelane_product_grid.settings.source.label",
+      "options": [
+        {
+          "value": "metaobject",
+          "label": "t:sections.purelane_reviews.settings.source.options__metaobject.label"
+        },
+        {
+          "value": "blocks",
+          "label": "t:sections.purelane_reviews.settings.source.options__blocks.label"
+        }
+      ],
+      "default": "metaobject",
+      "info": "t:sections.purelane_reviews.settings.source.info"
+    },
+    {
+      "type": "metaobject_list",
+      "id": "reviews",
+      "metaobject_type": "review",
+      "limit": 24,
+      "label": "t:sections.purelane_reviews.settings.reviews.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "reviews",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "t:sections.purelane_reviews.blocks.review.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.purelane_reviews.blocks.review.settings.title.label"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "t:sections.purelane_reviews.blocks.review.settings.body.label"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "t:sections.purelane_reviews.blocks.review.settings.author.label"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.purelane_reviews.blocks.review.settings.product.label"
+        },
+        {
+          "type": "text",
+          "id": "context",
+          "label": "t:sections.purelane_reviews.blocks.review.settings.context.label",
+          "info": "t:sections.purelane_reviews.blocks.review.settings.context.info"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "t:sections.purelane_reviews.blocks.review.settings.rating.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_reviews.presets.name",
+      "settings": {
+        "source": "blocks"
+      },
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "title": "Works like a charm",
+            "body": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "author": "Anita",
+            "context": "Laundry detergent"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Best dishwash ever",
+            "body": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "author": "Priya",
+            "context": "Dishwash gel"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Great product, great packaging",
+            "body": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "author": "Sunita",
+            "context": "Liquid handwash"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Dog friendly",
+            "body": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "author": "Rohit S.",
+            "context": "Floor cleaner"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Sparkling taps again",
+            "body": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "author": "Verified buyer",
+            "context": "Tap cleaner"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -3583,6 +3583,64 @@
       "presets": {
         "name": "Purelane hero"
       }
+    },
+    "purelane_reviews": {
+      "name": "Purelane reviews rail",
+      "settings": {
+        "show_stars": {
+          "label": "Show star row"
+        },
+        "stat_one": {
+          "label": "Stat 1"
+        },
+        "stat_two": {
+          "label": "Stat 2"
+        },
+        "reviews_header": {
+          "content": "Reviews"
+        },
+        "source": {
+          "info": "Metaobject entries can be reused across sections and pages. Blocks live only in this section.",
+          "options__metaobject": {
+            "label": "Review metaobjects"
+          },
+          "options__blocks": {
+            "label": "Blocks in this section"
+          }
+        },
+        "reviews": {
+          "label": "Reviews"
+        }
+      },
+      "blocks": {
+        "review": {
+          "name": "Review",
+          "settings": {
+            "title": {
+              "label": "Headline"
+            },
+            "body": {
+              "label": "Review"
+            },
+            "author": {
+              "label": "Name"
+            },
+            "product": {
+              "label": "Product"
+            },
+            "context": {
+              "label": "Product name",
+              "info": "Used when no product is picked."
+            },
+            "rating": {
+              "label": "Stars"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane reviews rail"
+      }
     }
   }
 }
