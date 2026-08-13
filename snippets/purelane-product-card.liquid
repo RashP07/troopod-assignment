@@ -1,0 +1,115 @@
+{%- comment -%}
+  Purelane product card.
+
+  Several sections in the prototype render the same card with different chrome,
+  so it lives in one snippet. Everything it shows comes from the product:
+  badge, rating and review count are metafields, price and availability are
+  native fields.
+
+  Accepts:
+    product      - product object (required)
+    badge        - override for the corner pill; falls back to the product's
+                   `custom.badge` metafield
+    heading_tag  - h2 | h3 | h4, defaults h3 (size comes from a class, so the
+                   level can follow the surrounding document outline)
+    reveal_delay - 1-5, staggers the reveal animation
+    show_rating  - defaults true
+    show_cta     - defaults true
+    loading      - 'lazy' (default) or 'eager' for above-the-fold cards
+    sizes        - responsive `sizes` attribute, defaults to the grid case
+    form_id      - unique id for the add-to-cart form; required when the same
+                   product can appear more than once on a page
+
+  Edge cases the seeded catalogue exercises deliberately:
+    - no image      -> a placeholder box of the same aspect ratio (no CLS)
+    - sold out      -> disabled button, "Sold out" label, badge suppressed
+    - long title    -> clamped to two lines so card heights stay even
+    - many variants -> "Choose options" links to the product instead of
+                       silently adding whichever variant happens to be first
+{%- endcomment -%}
+
+{%- liquid
+  assign heading_tag = heading_tag | default: 'h3'
+  assign loading = loading | default: 'lazy'
+  assign variant = product.selected_or_first_available_variant
+  assign badge_text = badge | default: product.metafields.custom.badge.value
+  assign rating = product.metafields.custom.rating.value
+  assign rating_count = product.metafields.custom.rating_count.value
+  assign needs_options = false
+  if product.variants.size > 1
+    assign needs_options = true
+  endif
+-%}
+
+<article
+  class="pl-glass pl-card pl-rv{% if reveal_delay %} pl-rv-d{{ reveal_delay }}{% endif %}"
+  {% if product.available == false %}
+    data-pl-sold-out
+  {% endif %}
+>
+  <a class="pl-card__shot" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- if badge_text != blank and product.available -%}
+      <span class="pl-card__pill">{{ badge_text }}</span>
+    {%- elsif product.available == false -%}
+      <span class="pl-card__pill pl-card__pill--out">{{ 'products.product.sold_out' | t }}</span>
+    {%- endif -%}
+
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: height: 400
+        | image_tag:
+          class: 'pl-pimg pl-card__img',
+          loading: loading,
+          widths: '120, 180, 240, 320, 400',
+          sizes: sizes | default: '(min-width: 860px) 180px, 40vw',
+          alt: ''
+      }}
+    {%- else -%}
+      {%- comment -%}Seeded no-image product: same box, no layout shift.{%- endcomment -%}
+      <span class="pl-pimg pl-pimg--placeholder pl-card__img">
+        {%- render 'purelane-icon', icon: 'leaf' -%}
+      </span>
+    {%- endif -%}
+  </a>
+
+  <{{ heading_tag }} class="pl-card__title">
+    <a href="{{ product.url }}">{{ product.title | escape }}</a>
+  </{{ heading_tag }}>
+
+  {%- if show_rating != false and rating != blank -%}
+    <div class="pl-card__rate">
+      <b aria-hidden="true">★ {{ rating.rating }}</b>
+      <span class="pl-visually-hidden">
+        {{- 'purelane.general.rating_label' | t: rating: rating.rating, max: rating.scale_max -}}
+      </span>
+      {%- if rating_count -%}
+        <span>· {{ 'purelane.general.review_count' | t: count: rating_count }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- render 'purelane-price', product: product, style: 'card' -%}
+
+  {%- if show_cta != false -%}
+    {%- if product.available == false -%}
+      <button type="button" class="pl-btn pl-btn--ghost pl-btn--sm pl-btn--block" disabled>
+        {{ 'products.product.sold_out' | t }}
+      </button>
+    {%- elsif needs_options -%}
+      <a class="pl-btn pl-btn--ghost pl-btn--sm pl-btn--block" href="{{ product.url }}">
+        {{ 'products.product.choose_options' | t }}
+        <span class="pl-visually-hidden">— {{ product.title | escape }}</span>
+      </a>
+    {%- else -%}
+      {%- form 'product', product, id: form_id, class: 'pl-card__form' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" name="add" class="pl-btn pl-btn--ghost pl-btn--sm pl-btn--block">
+          <span class="pl-btn__label">{{ 'products.product.add_to_cart' | t }}</span>
+          <span class="pl-visually-hidden">— {{ product.title | escape }}</span>
+        </button>
+      {%- endform -%}
+    {%- endif -%}
+  {%- endif -%}
+</article>

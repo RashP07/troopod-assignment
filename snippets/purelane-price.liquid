@@ -1,0 +1,65 @@
+{%- comment -%}
+  Purelane price block.
+
+  The prototype hardcoded `<strong>₹200</strong><s>₹299</s><em>33% off</em>`.
+  Here the price and compare-at come from the product and the discount is
+  derived — a merchant changing a price in the admin can never leave a stale
+  "33% off" badge behind.
+
+  Accepts:
+    product        - product object (required unless price/compare are passed)
+    price          - override, in cents
+    compare_at     - override, in cents
+    style          - card | combo | tier | tag  (visual variant)
+    show_discount  - true | false, defaults true
+    discount_as    - percent | amount, defaults percent
+
+  Accessibility: `<s>` and the discount badge carry meaning that is otherwise
+  only visual, so each gets a visually hidden label.
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign current = price | default: variant.price | default: product.price
+  assign was = compare_at | default: variant.compare_at_price | default: product.compare_at_price
+  assign style = style | default: 'card'
+  assign discount_as = discount_as | default: 'percent'
+
+  assign on_sale = false
+  if was and was > current
+    assign on_sale = true
+    assign saving = was | minus: current
+    assign saving_percent = saving | times: 100.0 | divided_by: was | round
+    assign saving_money = saving | money_without_trailing_zeros
+  endif
+-%}
+
+<div class="pl-price pl-price--{{ style }}">
+  <strong class="pl-price__now">
+    <span class="pl-visually-hidden">
+      {%- if on_sale -%}
+        {{ 'products.product.price.sale_price' | t }}
+      {%- else -%}
+        {{ 'products.product.price.regular_price' | t }}
+      {%- endif -%}
+    </span>
+    {{ current | money }}
+  </strong>
+
+  {%- if on_sale -%}
+    <s class="pl-price__was">
+      <span class="pl-visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+      {{ was | money }}
+    </s>
+
+    {%- if show_discount != false -%}
+      <em class="pl-price__off">
+        {%- if discount_as == 'amount' -%}
+          {{ 'purelane.general.save_amount' | t: amount: saving_money }}
+        {%- else -%}
+          {{ 'purelane.general.percent_off' | t: percent: saving_percent }}
+        {%- endif -%}
+      </em>
+    {%- endif -%}
+  {%- endif -%}
+</div>

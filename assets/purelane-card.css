@@ -1,0 +1,208 @@
+/* ==========================================================================
+   Purelane — product card + price
+   Shared by the product grid, the hero stage and the combo/bundle sections.
+   ========================================================================== */
+
+.pl-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s var(--pl-ease);
+}
+
+.pl-card:hover {
+  transform: translateY(-5px);
+}
+
+.pl-card__shot {
+  height: 150px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.6), rgba(236, 230, 247, 0.42));
+  border: 1px solid rgba(75, 58, 143, 0.1);
+}
+
+.pl-card__img {
+  height: 122px;
+  width: auto;
+}
+
+.pl-card__pill {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 2;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(201, 118, 29, 0.34);
+  color: var(--pl-leaf);
+}
+
+.pl-card__pill--out {
+  border-color: rgba(75, 58, 143, 0.28);
+  color: var(--pl-paper-2);
+}
+
+.pl-card__title {
+  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--pl-surface);
+  line-height: 1.2;
+  margin-bottom: 7px;
+  /* Seeded long-title product: clamp so a 90-character name cannot push one
+     card taller than its neighbours. The prototype had no case for this. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pl-card__rate {
+  font-size: 11.5px;
+  color: var(--pl-paper-2);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pl-card__rate b {
+  color: var(--pl-accent);
+  font-weight: 700;
+}
+
+.pl-card__form {
+  margin: 0;
+}
+
+.pl-card[data-pl-sold-out] .pl-card__img {
+  opacity: 0.66;
+  filter: grayscale(0.35) drop-shadow(0 8px 13px rgba(0, 74, 66, 0.1));
+}
+
+/* ---------- price ---------- */
+.pl-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pl-price__now {
+  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-weight: 700;
+  color: var(--pl-surface);
+}
+
+.pl-price__was {
+  color: var(--pl-paper-3);
+}
+
+.pl-price__off {
+  font-style: normal;
+  font-weight: 800;
+  color: var(--pl-accent);
+}
+
+/* card variant: pushed to the bottom of the card so every CTA lines up */
+.pl-price--card {
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.pl-price--card .pl-price__now {
+  font-size: 18px;
+}
+
+.pl-price--card .pl-price__was {
+  font-size: 12px;
+}
+
+.pl-price--card .pl-price__off {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+/* combo variant: bigger figure, discount rendered as a pill */
+.pl-price--combo {
+  gap: 9px;
+  margin-bottom: 6px;
+}
+
+.pl-price--combo .pl-price__now {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.pl-price--combo .pl-price__was {
+  font-size: 13px;
+}
+
+.pl-price--combo .pl-price__off {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(201, 118, 29, 0.14);
+  border: 1px solid rgba(201, 118, 29, 0.34);
+  color: var(--pl-leaf);
+}
+
+/* tier variant: accent-coloured, used on the bundle cards */
+.pl-price--tier {
+  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  margin: 16px 0 4px;
+  gap: 8px;
+}
+
+.pl-price--tier .pl-price__now {
+  font-weight: 700;
+  font-size: 27px;
+  color: var(--pl-accent);
+}
+
+.pl-price--tier .pl-price__was {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* tag variant: the hero stage price flag */
+.pl-price--tag {
+  gap: 7px;
+  margin-top: 5px;
+}
+
+.pl-price--tag .pl-price__now {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.pl-price--tag .pl-price__was {
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .pl-card__shot {
+    height: 126px;
+  }
+
+  .pl-card__img {
+    height: 108px;
+  }
+}
