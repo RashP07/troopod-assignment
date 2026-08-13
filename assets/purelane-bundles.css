@@ -29,8 +29,6 @@
 .pl-tier {
   padding: 24px 22px;
   transition: transform 0.4s var(--pl-ease);
-  display: flex;
-  flex-direction: column;
 }
 
 .pl-tier:hover {
@@ -44,7 +42,6 @@
 
 .pl-tier__tag {
   display: inline-block;
-  align-self: flex-start;
   font-size: 9.5px;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -110,11 +107,12 @@
 }
 
 .pl-tier__list {
+  /* Deliberately not stretched: the prototype lets a tier with fewer features
+     end higher than its neighbours, and matching that is the brief. Flagged in
+     the build notes as something to raise with design, not to silently fix. */
   margin: 16px 0 20px;
   display: grid;
   gap: 8px;
-  flex: 1;
-  align-content: start;
 }
 
 .pl-tier__list li {

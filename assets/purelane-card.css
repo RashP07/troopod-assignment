@@ -62,9 +62,12 @@
   line-height: 1.2;
   margin-bottom: 7px;
   /* Seeded long-title product: clamp so a 90-character name cannot push one
-     card taller than its neighbours. The prototype had no case for this. */
+     card taller than its neighbours. The prototype had no case for this.
+     Four lines is the longest a real product name wraps to at 375px, and far
+     more than the two lines the four-column layout ever needs, so the clamp
+     only ever catches a pathological title. */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -97,7 +100,6 @@
   display: flex;
   align-items: baseline;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .pl-price__now {
@@ -139,6 +141,7 @@
 .pl-price--combo {
   gap: 9px;
   margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .pl-price--combo .pl-price__now {
@@ -184,6 +187,7 @@
 .pl-price--tag {
   gap: 7px;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .pl-price--tag .pl-price__now {

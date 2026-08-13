@@ -6,7 +6,12 @@
 .pl-shelf {
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(2, 1fr);
+  /* minmax(0, 1fr) rather than 1fr: a grid item's automatic minimum size is
+     its min-content width, and the uppercase no-wrap "Add to cart" button is
+     wider than half of a 375px viewport. In the prototype that pushed the
+     whole page wider than the screen and `overflow-x: clip` on <body> hid the
+     evidence. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 @media (min-width: 860px) {

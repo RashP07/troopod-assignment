@@ -287,10 +287,6 @@
 }
 
 /* the discount pill sits on its own line under the price */
-.pl-hero__tag .pl-price--tag {
-  flex-wrap: wrap;
-}
-
 .pl-hero__tag .pl-price--tag .pl-price__off {
   flex-basis: 100%;
 }

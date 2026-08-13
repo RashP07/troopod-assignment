@@ -106,38 +106,31 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.pl h1,
-.pl h2,
-.pl h3,
-.pl h4,
-.pl h5,
-.pl h6,
-.pl p,
-.pl figure,
-.pl ul,
-.pl ol {
+/* `:where()` keeps the reset at zero specificity, so a component class like
+   `.pl-rail-note` can still set its own margin without needing to out-specify
+   the reset (or resort to !important, which is how the prototype ended up with
+   four of them). */
+.pl :where(h1, h2, h3, h4, h5, h6, p, figure, ul, ol) {
   margin: 0;
   padding: 0;
   letter-spacing: normal;
 }
 
-.pl ul,
-.pl ol {
+.pl :where(ul, ol) {
   list-style: none;
 }
 
-.pl img,
-.pl svg {
+.pl :where(img, svg) {
   display: block;
   max-width: 100%;
 }
 
-.pl a {
+.pl :where(a) {
   color: inherit;
   text-decoration: none;
 }
 
-.pl button {
+.pl :where(button) {
   font-family: inherit;
   cursor: pointer;
   border: none;
