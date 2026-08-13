@@ -3411,6 +3411,18 @@
         "anchor_header": {
           "content": "Anchor"
         },
+        "icon": {
+          "label": "Icon",
+          "options__leaf": { "label": "Leaf" },
+          "options__shield": { "label": "Shield" },
+          "options__no_chem": { "label": "No chemicals" },
+          "options__check": { "label": "Tick" }
+        },
+        "discount_as": {
+          "label": "Show saving as",
+          "options__percent": { "label": "Percentage" },
+          "options__amount": { "label": "Amount" }
+        },
         "scene": {
           "label": "Scene",
           "info": "Which of the backdrop's four depth gradients shows while this section is on screen."
@@ -3480,6 +3492,96 @@
       },
       "presets": {
         "name": "Purelane backdrop"
+      }
+    },
+    "purelane_hero": {
+      "name": "Purelane hero",
+      "settings": {
+        "heading": {
+          "info": "Each line becomes its own line on the page."
+        },
+        "accent_text": {
+          "label": "Highlighted word",
+          "info": "Any occurrence of this word in the heading is shown in the accent colour."
+        },
+        "lede": {
+          "label": "Intro text"
+        },
+        "cta_header": {
+          "content": "Buttons"
+        },
+        "cta_primary_label": {
+          "label": "Primary button label"
+        },
+        "cta_primary_link": {
+          "label": "Primary button link"
+        },
+        "cta_secondary_label": {
+          "label": "Secondary button label"
+        },
+        "cta_secondary_link": {
+          "label": "Secondary button link"
+        },
+        "stage_header": {
+          "content": "Product stage"
+        },
+        "autoplay": {
+          "label": "Advance slides automatically"
+        },
+        "autoplay_interval": {
+          "label": "Time between slides"
+        }
+      },
+      "blocks": {
+        "promise": {
+          "name": "Promise",
+          "settings": {
+            "text": {
+              "label": "Text",
+              "info": "Each line becomes its own line in the side rail."
+            },
+            "short_text": {
+              "label": "Short text",
+              "info": "Used in the small-screen strip. Falls back to Text."
+            }
+          }
+        },
+        "slide": {
+          "name": "Stage slide",
+          "settings": {
+            "label": {
+              "label": "Label"
+            },
+            "product_1": {
+              "label": "Product 1"
+            },
+            "product_2": {
+              "label": "Product 2"
+            },
+            "product_3": {
+              "label": "Product 3"
+            },
+            "image_1": {
+              "label": "Image 1 override"
+            },
+            "image_2": {
+              "label": "Image 2 override"
+            },
+            "image_3": {
+              "label": "Image 3 override"
+            },
+            "image_override": {
+              "info": "Optional. Use when the hero needs a different render from the product's main image."
+            },
+            "price_product": {
+              "label": "Price comes from",
+              "info": "Pick the bundle product this slide sells. Leave empty to add up the products above."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane hero"
       }
     }
   }

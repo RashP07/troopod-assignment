@@ -537,6 +537,17 @@
         "one": "{{ count }} review",
         "other": "{{ count }} reviews"
       }
-    }
+    },
+      "hero": {
+        "promises_title": "Product promises",
+        "carousel": "carousel",
+        "carousel_label": "Product bundles",
+        "slide": "slide",
+        "slide_of": "{{ index }} of {{ total }}",
+        "slide_status": "Slide {{ index }} of {{ total }}",
+        "go_to_slide": "Show slide {{ index }}",
+        "pause": "Pause product slideshow",
+        "play": "Play product slideshow"
+      }
   }
 }
