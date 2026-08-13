@@ -3714,6 +3714,40 @@
       "presets": {
         "name": "Purelane combos"
       }
+    },
+    "purelane_bundles": {
+      "name": "Purelane bundles",
+      "blocks": {
+        "tier": {
+          "name": "Tier",
+          "settings": {
+            "tag": {
+              "label": "Tag"
+            },
+            "products": {
+              "label": "Products shown",
+              "info": "Thumbnails above the tier. Their combined compare-at price is the strike-through figure."
+            },
+            "quantity": {
+              "label": "Products in this tier",
+              "info": "The big number. Can differ from how many thumbnails are shown."
+            },
+            "bundle": {
+              "info": "The bundle product this tier sells. Its price drives the per-product figure."
+            },
+            "features": {
+              "label": "Features",
+              "info": "One per line."
+            },
+            "highlight": {
+              "label": "Highlight this tier"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane bundles"
+      }
     }
   }
 }

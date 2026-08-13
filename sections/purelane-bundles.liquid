@@ -1,0 +1,299 @@
+{{ 'purelane-base.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-card.css' | asset_url | stylesheet_tag }}
+{{ 'purelane-bundles.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane bundle tiers.
+
+  Unlike combos, a tier is page furniture rather than reusable content: it
+  describes this section's offer ladder and nothing else references it. So it
+  is modelled as section blocks, which keeps it editable and reorderable
+  without inventing a metaobject nobody else reads.
+
+  What the tiers cannot do from the front end is actually sell a bundle. The
+  price shown is real (it comes from a bundle product), but assembling "any
+  three products at ₹499" at checkout needs Shopify Bundles or a cart-transform
+  function.
+{%- endcomment -%}
+
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+-%}
+
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  <div class="pl-wrap">
+    {%- if section.settings.heading != blank or section.settings.lede != blank -%}
+      <div class="pl-glass pl-sec-pad pl-rv pl-bundles__intro">
+        <div class="pl-head">
+          {%- if section.settings.kicker != blank -%}
+            <span class="pl-kicker">{{ section.settings.kicker }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pl-d2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.lede != blank -%}
+            <p class="pl-lede">{{ section.settings.lede }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="pl-tiers">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign products = block.settings.products
+          assign bundle = block.settings.bundle
+          assign qty = block.settings.quantity | default: products.size
+
+          assign sum_compare = 0
+          for item in products
+            assign item_compare = item.compare_at_price | default: item.price
+            assign sum_compare = sum_compare | plus: item_compare
+          endfor
+
+          if bundle != blank
+            assign tier_price = bundle.price
+            assign tier_compare = bundle.compare_at_price | default: sum_compare
+            assign tier_url = bundle.url
+          else
+            assign tier_price = 0
+            assign tier_compare = sum_compare
+          endif
+
+          assign per_unit = 0
+          if qty > 0 and tier_price > 0
+            assign per_unit = tier_price | divided_by: qty
+            assign per_unit_money = per_unit | money_without_trailing_zeros
+          endif
+
+          assign features = block.settings.features | newline_to_br | split: '<br />'
+          assign href = block.settings.cta_link | default: tier_url | default: '#'
+          assign delay = forloop.index0
+        -%}
+
+        <article
+          class="pl-glass pl-tier{% if block.settings.highlight %} pl-tier--best{% endif %} pl-rv{% if delay > 0 %} pl-rv-d{{ delay | plus: 1 }}{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.tag != blank -%}
+            <span class="pl-tier__tag">{{ block.settings.tag }}</span>
+          {%- endif -%}
+
+          {%- if products.size > 0 -%}
+            <div class="pl-tierpix{% if products.size > 3 %} pl-tierpix--five{% endif %}" aria-hidden="true">
+              {%- for item in products -%}
+                {%- if item.featured_media -%}
+                  {{
+                    item.featured_media
+                    | image_url: height: 200
+                    | image_tag:
+                      class: 'pl-pimg',
+                      loading: 'lazy',
+                      widths: '60, 90, 124, 160',
+                      sizes: '62px',
+                      alt: ''
+                  }}
+                {%- else -%}
+                  <span class="pl-pimg pl-pimg--placeholder">
+                    {%- render 'purelane-icon', icon: 'leaf' -%}
+                  </span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <div class="pl-tier__qty">
+            {{- qty -}}
+            <small>{{ 'purelane.bundles.products' | t }}</small>
+          </div>
+
+          {%- if tier_price > 0 -%}
+            {%- render 'purelane-price',
+              price: tier_price,
+              compare_at: tier_compare,
+              style: 'tier',
+              show_discount: false
+            -%}
+
+            {%- if per_unit > 0 -%}
+              <p class="pl-body-s pl-tier__unit">
+                {{- 'purelane.bundles.per_product' | t: amount: per_unit_money -}}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if features.size > 0 -%}
+            <ul class="pl-tier__list">
+              {%- for feature in features -%}
+                {%- assign clean = feature | strip -%}
+                {%- if clean != blank -%}
+                  <li>
+                    {%- render 'purelane-icon', icon: 'check' -%}
+                    {{ clean }}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          {%- if block.settings.cta_label != blank -%}
+            <a
+              class="pl-btn pl-btn--block {% if block.settings.highlight %}pl-btn--primary{% else %}pl-btn--ghost{% endif %}"
+              href="{{ href }}"
+            >
+              {{ block.settings.cta_label }}
+              {%- if block.settings.tag != blank -%}
+                <span class="pl-visually-hidden">— {{ block.settings.tag }}</span>
+              {%- endif -%}
+              {%- if block.settings.highlight -%}
+                {%- render 'purelane-icon', icon: 'arrow' -%}
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_bundles.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.purelane_shared.settings.kicker.label",
+      "default": "Build your bundle"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.purelane_shared.settings.heading.label",
+      "default": "One box. Every room."
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "t:sections.purelane_hero.settings.lede.label",
+      "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "bundles",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "t:sections.purelane_bundles.blocks.tier.name",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "t:sections.purelane_bundles.blocks.tier.settings.tag.label",
+          "default": "Starter"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "limit": 8,
+          "label": "t:sections.purelane_bundles.blocks.tier.settings.products.label",
+          "info": "t:sections.purelane_bundles.blocks.tier.settings.products.info"
+        },
+        {
+          "type": "range",
+          "id": "quantity",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 2,
+          "label": "t:sections.purelane_bundles.blocks.tier.settings.quantity.label",
+          "info": "t:sections.purelane_bundles.blocks.tier.settings.quantity.info"
+        },
+        {
+          "type": "product",
+          "id": "bundle",
+          "label": "t:sections.purelane_combos.blocks.combo.settings.bundle.label",
+          "info": "t:sections.purelane_bundles.blocks.tier.settings.bundle.info"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "t:sections.purelane_bundles.blocks.tier.settings.features.label",
+          "info": "t:sections.purelane_bundles.blocks.tier.settings.features.info",
+          "default": "Pick any two products\nFree shipping across India"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "t:sections.purelane_bundles.blocks.tier.settings.highlight.label",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "t:sections.purelane_combos.settings.cta_label.label",
+          "default": "Build this box"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "t:sections.purelane_combos.settings.cta_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_bundles.presets.name",
+      "blocks": [
+        { "type": "tier", "settings": { "tag": "Starter", "quantity": 2 } },
+        {
+          "type": "tier",
+          "settings": {
+            "tag": "Most popular",
+            "quantity": 3,
+            "highlight": true,
+            "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India"
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "tag": "Whole home",
+            "quantity": 5,
+            "features": "Pick any five products\nEvery room in one order\nFree shipping across India"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

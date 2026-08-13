@@ -558,6 +558,10 @@
           "one": "{{ count }} product",
           "other": "{{ count }} products"
         }
+      },
+      "bundles": {
+        "products": "Products",
+        "per_product": "Flat {{ amount }} per product"
       }
   }
 }
