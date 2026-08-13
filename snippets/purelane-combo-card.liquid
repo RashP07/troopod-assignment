@@ -1,0 +1,153 @@
+{%- comment -%}
+  Purelane combo card.
+
+  A combo is a piece of merchandising content, not a page element: the same
+  "Kitchen essentials" box appears in this rail, and the marketing team edits it
+  on its own. That makes it a metaobject rather than a section block, so the
+  entry is written once and reused anywhere.
+
+  Every number on the card is derived. The prototype hardcoded "You save ₹398"
+  next to "₹499" and "₹897"; here the saving is the difference, so a price
+  change in the admin can never leave a wrong claim on the page.
+
+  Accepts:
+    combo        - metaobject of type `combo`
+    block        - section block, used when the merchant chose the block source
+    cta_label    - default CTA label from the section
+    cta_link     - default CTA link from the section
+    reveal_delay - 1-5
+{%- endcomment -%}
+
+{%- liquid
+  if combo != blank
+    assign title = combo.title.value
+    assign products = combo.products.value
+    assign bundle = combo.bundle.value
+    assign thumbnails = combo.thumbnails.value | default: 3
+    assign flag = combo.flag.value
+    assign includes = combo.includes.value
+    assign fine_print = combo.fine_print.value
+    assign featured = combo.featured.value
+    assign save_label = combo.save_label.value
+    assign link = combo.cta_link.value | default: cta_link
+  else
+    assign title = block.settings.title
+    assign products = block.settings.products
+    assign bundle = block.settings.bundle
+    assign thumbnails = block.settings.thumbnails | default: 3
+    assign flag = block.settings.flag
+    assign includes = block.settings.includes
+    assign fine_print = block.settings.fine_print
+    assign featured = block.settings.featured
+    assign save_label = block.settings.save_label
+    assign link = block.settings.cta_link | default: cta_link
+  endif
+
+  assign count = products.size
+
+  comment
+    Compare-at is the cost of buying every included product separately, which
+    is what the "you save" figure has to be measured against.
+  endcomment
+  assign sum_compare = 0
+  assign sum_price = 0
+  for item in products
+    assign item_compare = item.compare_at_price | default: item.price
+    assign sum_compare = sum_compare | plus: item_compare
+    assign sum_price = sum_price | plus: item.price
+  endfor
+
+  if bundle != blank
+    assign combo_price = bundle.price
+    assign combo_compare = bundle.compare_at_price | default: sum_compare
+    assign combo_url = bundle.url
+  else
+    assign combo_price = sum_price
+    assign combo_compare = sum_compare
+  endif
+
+  assign saving = combo_compare | minus: combo_price
+  assign saving_money = saving | money_without_trailing_zeros
+  assign href = link | default: combo_url | default: '#'
+-%}
+
+<article
+  class="pl-glass pl-combo{% if featured %} pl-combo--featured{% endif %} pl-rv{% if reveal_delay %} pl-rv-d{{ reveal_delay }}{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  <div class="pl-combo__tray">
+    {%- if saving > 0 or save_label != blank -%}
+      <span class="pl-combo__save">
+        {%- if save_label != blank -%}
+          {{ save_label }}
+        {%- else -%}
+          {{ 'purelane.combos.you_save' | t: amount: saving_money }}
+        {%- endif -%}
+      </span>
+    {%- endif -%}
+
+    {%- if flag != blank -%}
+      <span class="pl-combo__flag">{{ flag }}</span>
+    {%- endif -%}
+
+    <div class="pl-stack">
+      {%- for item in products limit: thumbnails -%}
+        {%- unless forloop.first -%}
+          <span class="pl-stack__plus" aria-hidden="true">+</span>
+        {%- endunless -%}
+        <span class="pl-stack__item">
+          {%- if item.featured_media -%}
+            {{
+              item.featured_media
+              | image_url: height: 200
+              | image_tag:
+                class: 'pl-pimg',
+                loading: 'lazy',
+                widths: '60, 90, 120, 160',
+                sizes: '66px',
+                alt: item.title
+            }}
+          {%- else -%}
+            <span class="pl-pimg pl-pimg--placeholder">
+              {%- render 'purelane-icon', icon: 'leaf' -%}
+            </span>
+          {%- endif -%}
+          <span>{{ item.metafields.custom.benefit.value | default: item.title }}</span>
+        </span>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="pl-combo__body">
+    <h3 class="pl-combo__title">{{ title }}</h3>
+
+    {%- if count > 0 -%}
+      <div class="pl-combo__count">{{ 'purelane.combos.product_count' | t: count: count }}</div>
+    {%- endif -%}
+
+    {%- if includes != blank -%}
+      <p class="pl-combo__inc">{{ includes }}</p>
+    {%- endif -%}
+
+    {%- render 'purelane-price',
+      price: combo_price,
+      compare_at: combo_compare,
+      style: 'combo',
+      discount_as: 'amount'
+    -%}
+
+    {%- if fine_print != blank -%}
+      <div class="pl-combo__fine">{{ fine_print }}</div>
+    {%- endif -%}
+
+    {%- comment -%}
+      The card's only link. Its visible label repeats on every card, so the
+      combo name is appended for anyone listing the page's links.
+    {%- endcomment -%}
+    <a class="pl-btn pl-btn--block {% if featured %}pl-btn--primary{% else %}pl-btn--ghost{% endif %}" href="{{ href }}">
+      {{ cta_label }}
+      <span class="pl-visually-hidden">— {{ title }}</span>
+      {%- render 'purelane-icon', icon: 'arrow' -%}
+    </a>
+  </div>
+</article>

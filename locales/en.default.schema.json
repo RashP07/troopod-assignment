@@ -3641,6 +3641,79 @@
       "presets": {
         "name": "Purelane reviews rail"
       }
+    },
+    "purelane_combos": {
+      "name": "Purelane combos",
+      "settings": {
+        "combos_header": {
+          "content": "Combos"
+        },
+        "source": {
+          "info": "Combo metaobjects are reusable content. Blocks live only in this section.",
+          "options__metaobject": {
+            "label": "Combo metaobjects"
+          }
+        },
+        "combos": {
+          "label": "Combos"
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_link": {
+          "label": "Button link",
+          "info": "Used when a combo has no link of its own."
+        },
+        "rail_header": {
+          "content": "Rail"
+        },
+        "swipe_cue": {
+          "label": "Swipe hint"
+        },
+        "rail_note": {
+          "label": "Note under the rail"
+        }
+      },
+      "blocks": {
+        "combo": {
+          "name": "Combo",
+          "settings": {
+            "title": {
+              "label": "Name"
+            },
+            "products": {
+              "label": "Products included",
+              "info": "All of them. Their combined compare-at price is what the saving is measured against."
+            },
+            "thumbnails": {
+              "label": "Thumbnails to show"
+            },
+            "bundle": {
+              "label": "Price comes from",
+              "info": "The bundle product this combo sells. Leave empty to add up the products above."
+            },
+            "flag": {
+              "label": "Corner flag"
+            },
+            "save_label": {
+              "label": "Saving label",
+              "info": "Overrides the calculated \"You save\" figure."
+            },
+            "includes": {
+              "label": "Includes text"
+            },
+            "fine_print": {
+              "label": "Fine print"
+            },
+            "featured": {
+              "label": "Highlight this combo"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane combos"
+      }
     }
   }
 }

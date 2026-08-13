@@ -551,6 +551,13 @@
       },
       "reviews": {
         "rail_label": "Customer reviews"
+      },
+      "combos": {
+        "you_save": "You save {{ amount }}",
+        "product_count": {
+          "one": "{{ count }} product",
+          "other": "{{ count }} products"
+        }
       }
   }
 }
