@@ -5,7 +5,13 @@
 
 {%- liquid
   assign anchor = section.settings.anchor | default: section.id | handleize
-  assign combos = section.settings.combos.value
+  # A metaobject_list setting hands back the entries directly; `.value` is the
+  # shape a metafield would have. Accept either so the section is not at the
+  # mercy of which one this Shopify version returns.
+  assign combos = section.settings.combos
+  if combos.value
+    assign combos = combos.value
+  endif
   assign use_metaobjects = false
   if section.settings.source == 'metaobject' and combos.size > 0
     assign use_metaobjects = true

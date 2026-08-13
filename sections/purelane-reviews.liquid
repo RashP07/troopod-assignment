@@ -4,7 +4,13 @@
 
 {%- liquid
   assign anchor = section.settings.anchor | default: section.id | handleize
-  assign reviews = section.settings.reviews.value
+  # A metaobject_list setting hands back the entries directly; `.value` is the
+  # shape a metafield would have. Accept either so the section is not at the
+  # mercy of which one this Shopify version returns.
+  assign reviews = section.settings.reviews
+  if reviews.value
+    assign reviews = reviews.value
+  endif
   assign use_metaobjects = false
   if section.settings.source == 'metaobject' and reviews.size > 0
     assign use_metaobjects = true

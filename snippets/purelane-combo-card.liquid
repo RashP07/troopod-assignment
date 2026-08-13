@@ -72,7 +72,7 @@
 -%}
 
 <article
-  class="pl-glass pl-combo{% if featured %} pl-combo--featured{% endif %} pl-rv{% if reveal_delay %} pl-rv-d{{ reveal_delay }}{% endif %}"
+  class="pl-glass pl-combo{% if featured %} pl-combo--featured{% endif %} pl-rv{% if reveal_delay > 0 %} pl-rv-d{{ reveal_delay }}{% endif %}"
   {{ block.shopify_attributes }}
 >
   <div class="pl-combo__tray">
@@ -129,12 +129,14 @@
       <p class="pl-combo__inc">{{ includes }}</p>
     {%- endif -%}
 
-    {%- render 'purelane-price',
-      price: combo_price,
-      compare_at: combo_compare,
-      style: 'combo',
-      discount_as: 'amount'
-    -%}
+    {%- if combo_price > 0 -%}
+      {%- render 'purelane-price',
+        price: combo_price,
+        compare_at: combo_compare,
+        style: 'combo',
+        discount_as: 'amount'
+      -%}
+    {%- endif -%}
 
     {%- if fine_print != blank -%}
       <div class="pl-combo__fine">{{ fine_print }}</div>

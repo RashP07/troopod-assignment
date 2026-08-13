@@ -17,7 +17,7 @@
   assign placeholder_image = 'product-apparel-' | append: art_index
 -%}
 
-<article class="pl-glass pl-card pl-card--placeholder pl-rv pl-rv-d{{ delay }}" {{ block.shopify_attributes }}>
+<article class="pl-glass pl-card pl-card--placeholder pl-rv{% if delay > 0 %} pl-rv-d{{ delay }}{% endif %}" {{ block.shopify_attributes }}>
   <div class="pl-card__shot" aria-hidden="true">
     {{ placeholder_image | placeholder_svg_tag: 'pl-pimg pl-card__img' }}
   </div>
