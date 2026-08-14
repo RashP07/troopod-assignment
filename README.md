@@ -22,6 +22,7 @@ Bonus scope, beyond the five:
 |---|---|---|
 | Ticker | `sections/purelane-announcement.liquid` | `.ticker` |
 | Header + progress rail | `sections/purelane-header.liquid` | `#hdr`, `.rail` |
+| Footer | `sections/purelane-footer.liquid` | `footer` |
 
 Shared pieces:
 
@@ -34,17 +35,17 @@ snippets/purelane-price.liquid               price + derived discount
 snippets/purelane-icon.liquid                the five repeated SVGs
 assets/purelane-base.css                     tokens, type, glass, buttons, reveal
 assets/purelane-card.css                     card + price
-assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop,header}.css
+assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop,header,footer}.css
 assets/purelane-{hero,backdrop,header,reveal}.js
 ```
 
 Every Purelane file is prefixed. Nothing in Dawn is modified except `templates/index.json`,
-`sections/header-group.json`, one added stylesheet link in `layout/theme.liquid`
+`sections/header-group.json`, `sections/footer-group.json`, one added stylesheet link in `layout/theme.liquid`
 (sections cannot link a shared stylesheet without breaking their own
 cascade), and additive entries in the
 two locale files.
-Dawn's own `header.liquid` and `announcement-bar.liquid` are left in place,
-unused, so the stock header is one setting away.
+Dawn's own `header.liquid`, `announcement-bar.liquid` and `footer.liquid` are left
+in place, unused, so the stock chrome is one setting away.
 
 ## Docs
 
