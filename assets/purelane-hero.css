@@ -210,27 +210,47 @@
   transition-delay: 0.54s;
 }
 
-/* one product: full stage height */
+/* Sizing is height-driven, which silently assumed the prototype's art: those
+   bottles are 380x1177, about 1:3.1, so a bottle at 97% of the stage height
+   came out narrow enough for three of them to sit side by side. A real
+   product photo is nowhere near that shape — the seeded 380x595 bottles are
+   twice as wide per unit of height, so at the same height the group was about
+   1200px wide inside a 560px stage and spilled across the headline.
+
+   Capping the width per slide-count keeps the prototype's art pixel-identical
+   (it is already narrower than every cap) while making any other aspect ratio
+   fit. `object-fit: contain` with `object-position: center bottom` above means
+   a wide image loses height instead of overflowing, and still stands on the
+   same baseline.
+
+   Caps allow for the negative margins that overlap the group: three bottles
+   are 3 x 38% minus two 8% overlaps = 98% of the slide, two are 2 x 52% minus
+   one = 96%. Percentage margins resolve against the slide width, not the
+   bottle's own. */
 .pl-hero__slide[data-pl-count='1'] .pl-hero__bottle--1 {
   height: 100%;
+  max-width: 100%;
   z-index: 3;
 }
 
 /* two products */
 .pl-hero__slide[data-pl-count='2'] .pl-hero__bottle--1 {
   height: 80%;
+  max-width: 52%;
   margin-right: -8%;
   z-index: 1;
 }
 
 .pl-hero__slide[data-pl-count='2'] .pl-hero__bottle--2 {
   height: 97%;
+  max-width: 52%;
   z-index: 3;
 }
 
 /* three products: tight combo grouping */
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--1 {
   height: 75%;
+  max-width: 38%;
   margin-right: -8%;
   z-index: 1;
   order: 1;
@@ -238,12 +258,14 @@
 
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--3 {
   height: 97%;
+  max-width: 38%;
   z-index: 3;
   order: 2;
 }
 
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--2 {
   height: 79%;
+  max-width: 38%;
   margin-left: -8%;
   z-index: 2;
   order: 3;
