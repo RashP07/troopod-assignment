@@ -201,16 +201,40 @@
                 {%- endfor -%}
 
                 {%- if block.settings.label != blank or slide_price > 0 -%}
+                  {%- liquid
+                    assign slide_saving = 0
+                    if slide_compare > slide_price
+                      assign slide_saving = slide_compare | minus: slide_price
+                      assign slide_saving_money = slide_saving | money_without_trailing_zeros
+                      assign slide_saving_percent = slide_saving | times: 100.0 | divided_by: slide_compare | round
+                    endif
+                  -%}
                   <div class="pl-glass2 pl-hero__tag">
                     {%- if block.settings.label != blank -%}
                       <span class="pl-hero__tag-label">{{ block.settings.label }}</span>
                     {%- endif -%}
+
                     {%- render 'purelane-price',
                       price: slide_price,
                       compare_at: slide_compare,
                       style: 'tag',
-                      discount_as: block.settings.discount_as
+                      show_discount: false
                     -%}
+
+                    {%- comment -%}
+                      A sibling of the price row rather than a member of it: in
+                      one wrapping flex row the pill stretches to the row width
+                      and widens the flag by its own text.
+                    {%- endcomment -%}
+                    {%- if slide_saving > 0 -%}
+                      <span class="pl-hero__tag-cut">
+                        {%- if block.settings.discount_as == 'amount' -%}
+                          {{ 'purelane.general.save_amount' | t: amount: slide_saving_money }}
+                        {%- else -%}
+                          {{ 'purelane.general.percent_off' | t: percent: slide_saving_percent }}
+                        {%- endif -%}
+                      </span>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
               </div>
@@ -477,9 +501,9 @@
           "type": "promise",
           "settings": { "icon": "no-chem", "text": "Zero harsh\nchemicals", "short_text": "Zero harsh chem" }
         },
-        { "type": "slide", "settings": { "label": "Single bottle" } },
-        { "type": "slide", "settings": { "label": "Any 2 products" } },
-        { "type": "slide", "settings": { "label": "Any 3 products" } }
+        { "type": "slide", "settings": { "label": "Single bottle", "discount_as": "percent" } },
+        { "type": "slide", "settings": { "label": "Any 2 products", "discount_as": "amount" } },
+        { "type": "slide", "settings": { "label": "Any 3 products", "discount_as": "amount" } }
       ]
     }
   ]

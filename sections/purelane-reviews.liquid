@@ -50,21 +50,23 @@
   <div class="pl-revrail pl-rv" role="region" aria-label="{{ 'purelane.reviews.rail_label' | t }}">
     <div class="pl-revtrack">
       {%- for pass in (1..2) -%}
+        {%- comment -%}
+          `hidden` goes on the card itself, not on a wrapper: a wrapper div
+          becomes the flex item and stretches, leaving the card inside it at
+          content height, so the duplicate pass ends up shorter than the first.
+        {%- endcomment -%}
+        {%- assign is_duplicate = false -%}
+        {%- if pass == 2 -%}
+          {%- assign is_duplicate = true -%}
+        {%- endif -%}
+
         {%- if use_metaobjects -%}
           {%- for review in reviews -%}
-            {%- if pass == 1 -%}
-              {%- render 'purelane-review-card', review: review -%}
-            {%- else -%}
-              <div aria-hidden="true">{%- render 'purelane-review-card', review: review -%}</div>
-            {%- endif -%}
+            {%- render 'purelane-review-card', review: review, hidden: is_duplicate -%}
           {%- endfor -%}
         {%- else -%}
           {%- for block in section.blocks -%}
-            {%- if pass == 1 -%}
-              {%- render 'purelane-review-card', block: block -%}
-            {%- else -%}
-              <div aria-hidden="true">{%- render 'purelane-review-card', block: block -%}</div>
-            {%- endif -%}
+            {%- render 'purelane-review-card', block: block, hidden: is_duplicate -%}
           {%- endfor -%}
         {%- endif -%}
       {%- endfor -%}

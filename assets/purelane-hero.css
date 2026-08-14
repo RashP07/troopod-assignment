@@ -93,7 +93,7 @@
   height: 19px;
 }
 
-.pl-hero__badge span {
+.pl-hero__badge > span:not(.pl-hero__badge-icon) {
   display: block;
   font-size: 8.5px;
   font-weight: 700;
@@ -132,6 +132,11 @@
 
 /* ---------- product stage ---------- */
 .pl-hero__prod {
+  /* <purelane-hero-stage> is a custom element, and an unknown element's default
+     display is `inline`. Above 900px `position: absolute` blockified it and hid
+     the omission; below 900px, where it is `position: relative`, `width` and
+     `margin: … auto` were being discarded and the stage spanned the full grid. */
+  display: block;
   position: absolute;
   right: 2%;
   bottom: 28px;
@@ -272,7 +277,7 @@
   color: var(--pl-accent);
 }
 
-.pl-hero__tag .pl-price__off {
+.pl-hero__tag-cut {
   display: inline-block;
   margin-top: 7px;
   font-size: 8.4px;
@@ -284,11 +289,6 @@
   background: rgba(201, 118, 29, 0.16);
   border: 1px solid rgba(201, 118, 29, 0.36);
   color: var(--pl-leaf);
-}
-
-/* the discount pill sits on its own line under the price */
-.pl-hero__tag .pl-price--tag .pl-price__off {
-  flex-basis: 100%;
 }
 
 /* ---------- stage controls ---------- */
@@ -323,7 +323,9 @@
 .pl-hero__toggle {
   width: 22px;
   height: 22px;
-  margin-left: 5px;
+  /* Negative block margins keep the row the height of the dots (6px), so adding
+     the control does not shift the stage above it. */
+  margin: -8px 0 -8px 5px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -378,6 +380,15 @@
 @media (max-width: 900px) {
   .pl-hero {
     padding-top: 132px;
+  }
+
+  .pl-hero::before {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.62) 0%,
+      rgba(255, 255, 255, 0.34) 36%,
+      rgba(255, 255, 255, 0.66) 100%
+    );
   }
 
   .pl-hero__copy {

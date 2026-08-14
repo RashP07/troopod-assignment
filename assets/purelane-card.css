@@ -183,11 +183,11 @@
   font-weight: 500;
 }
 
-/* tag variant: the hero stage price flag */
+/* tag variant: the hero stage price flag. The discount pill is a sibling of
+   this row, not a member of it — see .pl-hero__tag-cut. */
 .pl-price--tag {
   gap: 7px;
   margin-top: 5px;
-  flex-wrap: wrap;
 }
 
 .pl-price--tag .pl-price__now {

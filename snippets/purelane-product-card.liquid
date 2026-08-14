@@ -90,7 +90,7 @@
         {{- 'purelane.general.rating_label' | t: rating: rating.rating, max: rating.scale_max -}}
       </span>
       {%- if rating_count -%}
-        <span>· {{ 'purelane.general.review_count' | t: count: rating_count }}</span>
+        · {{ 'purelane.general.review_count' | t: count: rating_count }}
       {%- endif -%}
     </div>
   {%- endif -%}

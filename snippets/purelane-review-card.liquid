@@ -7,6 +7,8 @@
   Accepts:
     review - metaobject of type `review`
     block  - section block with title/body/author/product/rating settings
+    hidden - true for the marquee's duplicate pass, which exists only so the
+             loop is seamless and must not be read out twice
 {%- endcomment -%}
 
 {%- liquid
@@ -31,7 +33,13 @@
   endfor
 -%}
 
-<article class="pl-glass2 pl-rcard" {{ block.shopify_attributes }}>
+<article
+  class="pl-glass2 pl-rcard"
+  {% if hidden %}
+    aria-hidden="true"
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
   {%- if rounded > 0 -%}
     <div class="pl-rcard__stars" aria-hidden="true">{{ stars }}</div>
     <span class="pl-visually-hidden">
