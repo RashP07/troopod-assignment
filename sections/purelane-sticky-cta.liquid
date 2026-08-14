@@ -1,0 +1,91 @@
+{{ 'purelane-sticky-cta.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Purelane mobile sticky CTA — `purelane-homepage.html:1561-1565`.
+
+  A fixed bar along the bottom of the viewport below 960px, carrying the
+  standing offer and one button. No `pl-section` class: that class sets
+  `content-visibility: auto`, whose paint containment would make the section
+  a containing block for its own fixed child and clip the bar out of view
+  whenever the section sat off-screen.
+
+  No reveal animation either — the bar is in view from the first paint, so
+  `.pl-rv` would only make it fade in against nothing.
+{%- endcomment -%}
+
+{%- liquid
+  assign label = section.settings.label
+  assign note = section.settings.note
+  assign cta_label = section.settings.cta_label
+-%}
+
+{%- if label != blank or note != blank or cta_label != blank -%}
+  <div class="pl">
+    <div class="pl-sticky">
+      {%- if label != blank or note != blank -%}
+        <span class="pl-sticky__lbl">
+          {%- if label != blank -%}
+            <b>{{ label }}</b>
+          {%- endif -%}
+          {%- if note != blank -%}
+            <span>{{ note }}</span>
+          {%- endif -%}
+        </span>
+      {%- endif -%}
+
+      {%- if cta_label != blank -%}
+        <a
+          class="pl-btn pl-btn--primary pl-btn--sm"
+          href="{{ section.settings.cta_link | default: '#' }}"
+        >
+          {{- cta_label -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.purelane_sticky_cta.name",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.purelane_sticky_cta.settings.paragraph.content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:sections.purelane_sticky_cta.settings.label.label",
+      "default": "Pick any 3, pay ₹499"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "t:sections.purelane_sticky_cta.settings.note.label",
+      "default": "Free shipping, always"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "t:sections.purelane_sticky_cta.settings.cta_label.label",
+      "default": "Build bundle"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "t:sections.purelane_sticky_cta.settings.cta_link.label",
+      "default": "#bundles"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_sticky_cta.presets.name"
+    }
+  ]
+}
+{% endschema %}

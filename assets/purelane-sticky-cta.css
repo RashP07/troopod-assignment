@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Purelane — mobile sticky CTA
+   `purelane-homepage.html:1561-1565`, styles at `:459-467`, light theme
+   at `:776`.
+   ========================================================================== */
+
+/* The prototype reserves room for the bar on `body` (`:43`, released at 960px
+   on `:45`). That rule lives here rather than in `purelane-base.css` so it is
+   tied to the section: remove the section in the editor and the stylesheet
+   goes with it, taking the reserved space with it. */
+@media (max-width: 959px) {
+  body {
+    padding-bottom: 74px;
+  }
+}
+
+.pl-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 48;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.86);
+  border-top: 1px solid rgba(75, 58, 143, 0.14);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+@media (min-width: 960px) {
+  .pl-sticky {
+    display: none;
+  }
+}
+
+.pl-sticky__lbl {
+  line-height: 1.2;
+}
+
+.pl-sticky__lbl b {
+  display: block;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pl-surface);
+}
+
+.pl-sticky__lbl span {
+  font-size: 10.5px;
+  color: var(--pl-paper-3);
+}
+
+.pl-sticky .pl-btn {
+  margin-left: auto;
+}

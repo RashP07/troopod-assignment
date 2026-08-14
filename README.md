@@ -31,6 +31,7 @@ Bonus scope, beyond the five:
 | Trust bar | `sections/purelane-trust.liquid` | the four-claim strip |
 | Signup | `sections/purelane-signup.liquid` | the newsletter band |
 | Footer | `sections/purelane-footer.liquid` | `footer` |
+| Sticky CTA | `sections/purelane-sticky-cta.liquid` | `.sticky`, the mobile bottom bar |
 
 That is every section in the prototype; the homepage is a full port.
 
@@ -47,7 +48,7 @@ snippets/purelane-ingredient-art.liquid      the five botanical drawings
 assets/purelane-base.css                     tokens, type, glass, buttons, reveal
 assets/purelane-card.css                     card + price
 assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop,header,footer}.css
-assets/purelane-{ingredients,pillars,proof,range,why-bundles,categories,trust,signup}.css
+assets/purelane-{ingredients,pillars,proof,range,why-bundles,categories,trust,signup,sticky-cta}.css
 assets/purelane-{hero,backdrop,header,proof,reveal}.js
 ```
 

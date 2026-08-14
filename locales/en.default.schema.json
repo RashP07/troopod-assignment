@@ -4122,6 +4122,29 @@
       "presets": {
         "name": "Purelane signup"
       }
+    },
+    "purelane_sticky_cta": {
+      "name": "Purelane sticky CTA",
+      "settings": {
+        "paragraph": {
+          "content": "A fixed bar along the bottom of the screen, shown on phones and tablets only. It is hidden from 960px up."
+        },
+        "label": {
+          "label": "Offer"
+        },
+        "note": {
+          "label": "Supporting line"
+        },
+        "cta_label": {
+          "label": "Button label"
+        },
+        "cta_link": {
+          "label": "Button link"
+        }
+      },
+      "presets": {
+        "name": "Purelane sticky CTA"
+      }
     }
   }
 }
