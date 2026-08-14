@@ -17,27 +17,6 @@
     var backdrop = document.querySelector('[data-pl-backdrop]');
     if (!backdrop) return;
 
-    /* Let the first paint happen without the water: see the note in
-       `purelane-backdrop.css` for the measurements. One frame after load is
-       late enough that the expensive composite lands off the critical path,
-       and early enough that the fade reads as part of the page arriving. */
-    function reveal() {
-      requestAnimationFrame(function () {
-        backdrop.classList.add('pl-is-ready');
-        /* A second frame so the browser has a transparent starting value to
-           transition from; adding both at once would jump straight to full. */
-        requestAnimationFrame(function () {
-          backdrop.classList.add('pl-is-lit');
-        });
-      });
-    }
-
-    if (document.readyState === 'complete') {
-      reveal();
-    } else {
-      window.addEventListener('load', reveal, { once: true });
-    }
-
     var layers = backdrop.querySelectorAll('[data-pl-water] .pl-wl');
     var scenes = backdrop.querySelectorAll('.pl-scene');
     var depths = [0.05, 0.09, 0.03, 0.02];

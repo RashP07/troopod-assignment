@@ -52,40 +52,6 @@
   transition: opacity 1.2s ease;
 }
 
-/* ---------- why the water waits for the first paint ----------
-   The water is four full-viewport layers composited with `mix-blend-mode`,
-   and every glass surface on the page has a `backdrop-filter` that has to
-   sample through them. Either feature alone is cheap; together they made the
-   first paint cost about a second on a throttled mobile profile — measured by
-   rendering the deployed page with each disabled in turn:
-
-     as shipped   FCP 1267 ms      water off   FCP 265 ms
-     glass off    FCP  266 ms      both off    FCP 243 ms
-
-   Nothing was waiting on the network; the hero image had finished
-   downloading at 0.47 s. So the water holds at `opacity: 0` until the script
-   marks the backdrop ready, one frame after load, and then fades in over the
-   1.2s transition it already had. The scene gradients underneath are plain
-   linear-gradients and paint immediately, so the page still comes up green.
-
-   It has to be `display: none` rather than `opacity: 0`: an opacity-0 layer is
-   still in the backdrop root, so every `backdrop-filter` keeps sampling it and
-   the cost stays. Measured both ways — opacity-0 held FCP at 1274 ms, display
-   none brought it to 265 ms.
-
-   Taking it out of the layout also means the fade needs re-arming: the script
-   adds `pl-is-ready` (the water is displayed, still transparent) and then
-   `pl-is-lit` one frame later, which lets the existing 1.2s transition run to
-   whatever opacity the depth rule below wants. Both selectors outrank those
-   depth rules. */
-.pl-scenes:not(.pl-is-ready) .pl-water {
-  display: none;
-}
-
-.pl-scenes.pl-is-ready:not(.pl-is-lit) .pl-water {
-  opacity: 0;
-}
-
 .pl-wl {
   position: absolute;
   inset: 0;
