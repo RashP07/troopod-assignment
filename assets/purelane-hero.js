@@ -33,6 +33,23 @@
       this.mouseX = 0;
       this.mouseY = 0;
 
+      /* Parallax and the scroll fade belong to the product stage, not to the
+         carousel — the prototype ran them whether or not there was anything to
+         advance, since it only ever had one product element. They are wired up
+         before the single-slide bail-out below so a hero configured with one
+         slide is not left completely inert. */
+      this.onScroll = this.onScroll.bind(this);
+      this.onMouseMove = this.onMouseMove.bind(this);
+      this.paint = this.paint.bind(this);
+
+      if (!reduce.matches) {
+        window.addEventListener('scroll', this.onScroll, { passive: true });
+        if (desktop.matches) {
+          window.addEventListener('mousemove', this.onMouseMove, { passive: true });
+        }
+      }
+
+      /* Everything below drives slide changes, so it needs at least two. */
       if (this.slides.length < 2) return;
 
       this.interval = parseInt(this.dataset.plInterval, 10) || 3800;
@@ -43,9 +60,6 @@
       this.onKeydown = this.onKeydown.bind(this);
       this.onEnter = this.stop.bind(this);
       this.onLeave = this.play.bind(this);
-      this.onScroll = this.onScroll.bind(this);
-      this.onMouseMove = this.onMouseMove.bind(this);
-      this.paint = this.paint.bind(this);
 
       this.dots.forEach(function (dot) {
         dot.addEventListener('click', this.onDotClick);
@@ -72,13 +86,6 @@
         { threshold: 0.2 }
       );
       this.visible.observe(this);
-
-      if (!reduce.matches) {
-        window.addEventListener('scroll', this.onScroll, { passive: true });
-        if (desktop.matches) {
-          window.addEventListener('mousemove', this.onMouseMove, { passive: true });
-        }
-      }
     }
 
     disconnectedCallback() {
