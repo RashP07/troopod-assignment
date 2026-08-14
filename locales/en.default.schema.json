@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -3827,6 +3836,61 @@
       },
       "presets": {
         "name": "Purelane header"
+      }
+    },
+    "purelane_footer": {
+      "name": "Purelane footer",
+      "settings": {
+        "blurb": {
+          "label": "Blurb"
+        },
+        "bottom_header": {
+          "content": "Bottom row"
+        },
+        "legal_name": {
+          "label": "Legal name",
+          "info": "Shown after the year. Defaults to the store name."
+        },
+        "legal_menu": {
+          "label": "Legal menu",
+          "info": "Leave empty to list the store's own policy pages."
+        }
+      },
+      "blocks": {
+        "column": {
+          "name": "Link column",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "menu": {
+              "label": "Menu",
+              "info": "Takes priority over the list below."
+            },
+            "links": {
+              "label": "Links",
+              "info": "Used only when no menu is picked. One \"Label | /url\" per line."
+            }
+          }
+        },
+        "contact": {
+          "name": "Contact column",
+          "settings": {
+            "email": {
+              "label": "Email"
+            },
+            "phone": {
+              "label": "Phone"
+            },
+            "note": {
+              "label": "Note",
+              "info": "Small print under the contact details."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane footer"
       }
     }
   }

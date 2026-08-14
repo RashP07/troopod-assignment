@@ -485,6 +485,62 @@
   display: block;
 }
 
+/* ---------- brand lockup ----------
+   Mark, name and tagline, identical in the header pill and the footer's
+   first column. It lived in `purelane-header.css` until the footer needed
+   it too; a section stylesheet cannot be shared without linking the whole
+   header layer into the footer. */
+.pl-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: 0 0 auto;
+}
+
+.pl-brand__mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  background: linear-gradient(150deg, rgba(201, 118, 29, 0.2), rgba(75, 58, 143, 0.14));
+  border: 1px solid rgba(75, 58, 143, 0.18);
+  color: var(--pl-accent);
+}
+
+.pl-brand__mark svg,
+.pl-brand__mark img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+.pl-brand__txt {
+  line-height: 1.05;
+}
+
+.pl-brand__name {
+  display: block;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 16.5px;
+  line-height: 1.06;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--pl-surface);
+}
+
+.pl-brand__tag {
+  display: block;
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pl-paper-3);
+}
+
 /* ---------- utilities ---------- */
 .pl-visually-hidden {
   position: absolute !important;

@@ -1,0 +1,279 @@
+{{ 'purelane-footer.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Purelane footer.
+
+  `purelane-homepage.html:1519-1559`. The prototype's four columns are one
+  brand column and three hardcoded anchor lists; here the three are blocks, so
+  a merchant can reorder, rename or remove them.
+
+  Each link column takes a link list. It also takes a plain-text list, used
+  only when no link list is picked — the same "works before the store is
+  configured" fallback the combos and reviews sections already use for their
+  metaobjects, and the reason the prototype's own link text can ship as the
+  section's default on a store with no menus built yet.
+{%- endcomment -%}
+
+{%- liquid
+  assign year = 'now' | date: '%Y'
+  assign legal_name = section.settings.legal_name | default: shop.name
+-%}
+
+<div class="pl" data-pl-scene="{{ section.settings.scene }}">
+  <footer class="pl-footer" role="contentinfo">
+    <div class="pl-wrap">
+      <div class="pl-footer__grid">
+        <div class="pl-footer__col">
+          <a class="pl-brand pl-footer__brand" href="{{ routes.root_url }}">
+            <span class="pl-brand__mark">
+              {%- if section.settings.logo != blank -%}
+                {{ section.settings.logo | image_url: width: 46 | image_tag: alt: '', loading: 'lazy' }}
+              {%- else -%}
+                {%- render 'purelane-icon', icon: 'leaf' -%}
+              {%- endif -%}
+            </span>
+            <span class="pl-brand__txt">
+              <span class="pl-brand__name">{{ section.settings.brand_name | default: shop.name }}</span>
+              {%- if section.settings.tagline != blank -%}
+                <span class="pl-brand__tag">{{ section.settings.tagline }}</span>
+              {%- endif -%}
+            </span>
+          </a>
+
+          {%- if section.settings.blurb != blank -%}
+            <p class="pl-footer__blurb">{{ section.settings.blurb }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- for block in section.blocks -%}
+          <div class="pl-footer__col" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <h2 class="pl-footer__title" id="pl-footer-{{ block.id }}">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+
+            {%- case block.type -%}
+              {%- when 'column' -%}
+                <nav
+                  {% if block.settings.heading != blank %}
+                    aria-labelledby="pl-footer-{{ block.id }}"
+                  {% endif %}
+                >
+                  {%- if block.settings.menu != blank -%}
+                    {%- for link in block.settings.menu.links -%}
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- comment -%}
+                      One "Label | /url" per line. A row with no pipe is treated
+                      as a label pointing at the homepage rather than dropped,
+                      so a half-finished line still renders something clickable.
+                    {%- endcomment -%}
+                    {%- assign rows = block.settings.links | newline_to_br | split: '<br />' -%}
+                    {%- for row in rows -%}
+                      {%- assign parts = row | split: '|' -%}
+                      {%- assign label = parts[0] | strip -%}
+                      {%- if label != blank -%}
+                        <a href="{{ parts[1] | default: routes.root_url | strip }}">{{ label }}</a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                </nav>
+
+              {%- when 'contact' -%}
+                {%- if block.settings.email != blank -%}
+                  <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                {%- endif -%}
+                {%- if block.settings.phone != blank -%}
+                  {%- comment -%}
+                    `tel:` cannot carry the spaces the displayed number wants.
+                  {%- endcomment -%}
+                  <a href="tel:{{ block.settings.phone | remove: ' ' }}">{{ block.settings.phone }}</a>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}
+                  <p class="pl-footer__fine">{{ block.settings.note }}</p>
+                {%- endif -%}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="pl-footer__bot">
+        <span>
+          {{- 'purelane.footer.copyright' | t: year: year, name: legal_name -}}
+        </span>
+
+        {%- comment -%}
+          Falls back to the store's own policy pages, which is where a shopper
+          expects these to point and the only version that stays correct when a
+          policy is edited in the admin.
+        {%- endcomment -%}
+        <span class="pl-footer__legal">
+          {%- if section.settings.legal_menu != blank -%}
+            {%- for link in section.settings.legal_menu.links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <a href="{{ policy.url }}">{{ policy.title }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_footer.name",
+  "tag": "div",
+  "class": "pl-footer-host",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.purelane_header.settings.logo.label",
+      "info": "t:sections.purelane_header.settings.logo.info"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "t:sections.purelane_header.settings.brand_name.label",
+      "info": "t:sections.purelane_header.settings.brand_name.info"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "t:sections.purelane_header.settings.tagline.label",
+      "default": "Clean, simply"
+    },
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "t:sections.purelane_footer.settings.blurb.label",
+      "default": "Effective cleaning, powered by nature. Made for Indian homes since day one."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_footer.settings.bottom_header.content"
+    },
+    {
+      "type": "text",
+      "id": "legal_name",
+      "label": "t:sections.purelane_footer.settings.legal_name.label",
+      "info": "t:sections.purelane_footer.settings.legal_name.info",
+      "default": "Purelane Eco Products Private Limited"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "t:sections.purelane_footer.settings.legal_menu.label",
+      "info": "t:sections.purelane_footer.settings.legal_menu.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.purelane_footer.blocks.column.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.purelane_footer.blocks.column.settings.heading.label",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.purelane_footer.blocks.column.settings.menu.label",
+          "info": "t:sections.purelane_footer.blocks.column.settings.menu.info"
+        },
+        {
+          "type": "textarea",
+          "id": "links",
+          "label": "t:sections.purelane_footer.blocks.column.settings.links.label",
+          "info": "t:sections.purelane_footer.blocks.column.settings.links.info",
+          "default": "Bestsellers | #shop\nKitchen | #shop\nLaundry | #shop"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "t:sections.purelane_footer.blocks.contact.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.purelane_footer.blocks.column.settings.heading.label",
+          "default": "Get in touch"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "t:sections.purelane_footer.blocks.contact.settings.email.label"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "t:sections.purelane_footer.blocks.contact.settings.phone.label"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "t:sections.purelane_footer.blocks.contact.settings.note.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_footer.presets.name",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "heading": "Shop",
+            "links": "Bestsellers | #shop\nKitchen | #shop\nLaundry | #shop\nHome | #shop\nSkin | #shop\nStarter kits | #bundles"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "heading": "About",
+            "links": "How it works | #how\nSustainability | #ingredients\nFAQs | #proof\nReviews | #reviews"
+          }
+        },
+        {
+          "type": "contact",
+          "settings": {
+            "heading": "Get in touch",
+            "email": "hello@purelane.com",
+            "phone": "+91 9930 123 234",
+            "note": "Purelane Eco Products Pvt Ltd"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
