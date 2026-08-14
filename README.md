@@ -22,7 +22,17 @@ Bonus scope, beyond the five:
 |---|---|---|
 | Ticker | `sections/purelane-announcement.liquid` | `.ticker` |
 | Header + progress rail | `sections/purelane-header.liquid` | `#hdr`, `.rail` |
+| Ingredients | `sections/purelane-ingredients.liquid` | `#ingredients` |
+| Pillars | `sections/purelane-pillars.liquid` | `#how` |
+| Proof | `sections/purelane-proof.liquid` | `#proof` |
+| Range strip | `sections/purelane-range.liquid` | `#range` |
+| Why bundles | `sections/purelane-why-bundles.liquid` | `#whybundles` |
+| Bundle categories | `sections/purelane-categories.liquid` | `#categories` |
+| Trust bar | `sections/purelane-trust.liquid` | the four-claim strip |
+| Signup | `sections/purelane-signup.liquid` | the newsletter band |
 | Footer | `sections/purelane-footer.liquid` | `footer` |
+
+That is every section in the prototype; the homepage is a full port.
 
 Shared pieces:
 
@@ -32,11 +42,13 @@ snippets/purelane-product-card-placeholder.liquid
 snippets/purelane-combo-card.liquid
 snippets/purelane-review-card.liquid
 snippets/purelane-price.liquid               price + derived discount
-snippets/purelane-icon.liquid                the five repeated SVGs
+snippets/purelane-icon.liquid                the repeated stroked SVGs
+snippets/purelane-ingredient-art.liquid      the five botanical drawings
 assets/purelane-base.css                     tokens, type, glass, buttons, reveal
 assets/purelane-card.css                     card + price
 assets/purelane-{hero,combos,bundles,reviews,product-grid,backdrop,header,footer}.css
-assets/purelane-{hero,backdrop,header,reveal}.js
+assets/purelane-{ingredients,pillars,proof,range,why-bundles,categories,trust,signup}.css
+assets/purelane-{hero,backdrop,header,proof,reveal}.js
 ```
 
 Every Purelane file is prefixed. Nothing in Dawn is modified except `templates/index.json`,

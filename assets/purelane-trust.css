@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Purelane — trust bar
+   `purelane-homepage.html:1478-1503`, styles at `:434-438`, light theme
+   at `:758`.
+   ========================================================================== */
+
+.pl-trust {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  padding: 6px;
+}
+
+@media (min-width: 820px) {
+  .pl-trust {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pl-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 14px;
+}
+
+.pl-trust__item svg {
+  width: 26px;
+  height: 26px;
+  color: var(--pl-leaf);
+  flex: 0 0 auto;
+}
+
+.pl-trust__item span {
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pl-paper-2);
+  line-height: 1.32;
+}

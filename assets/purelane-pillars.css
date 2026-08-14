@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Purelane — pillars ("how it works")
+   `purelane-homepage.html:1106-1134`, styles at `:363-372`, light theme
+   at `:729-730`.
+   ========================================================================== */
+
+.pl-pillars {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 820px) {
+  .pl-pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pl-pillar {
+  padding: 26px 24px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pl-pillar__icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  background: linear-gradient(150deg, rgba(201, 118, 29, 0.18), rgba(75, 58, 143, 0.12));
+  border: 1px solid rgba(75, 58, 143, 0.16);
+  color: var(--pl-leaf);
+}
+
+.pl-pillar__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.pl-pillar .pl-d3 {
+  margin-bottom: 11px;
+}
+
+/* `flex: 1` on the copy is what puts every card's button on one baseline
+   regardless of how long the paragraph runs. */
+.pl-pillar p {
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.pl-pillar .pl-btn {
+  align-self: flex-start;
+}

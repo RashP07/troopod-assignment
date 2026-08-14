@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Purelane — signup band
+   `purelane-homepage.html:1505-1517`, styles at `:441-447`, light theme
+   at `:769-771`.
+   ========================================================================== */
+
+.pl-signup {
+  padding: clamp(28px, 4vw, 46px);
+  text-align: center;
+}
+
+.pl-signup .pl-d2 {
+  margin-bottom: 12px;
+}
+
+.pl-signup .pl-kicker + .pl-d2 {
+  margin-top: 12px;
+}
+
+.pl-signup .pl-lede {
+  margin: 0 auto;
+}
+
+.pl-signup__form {
+  display: flex;
+  gap: 9px;
+  max-width: 430px;
+  margin: 22px auto 0;
+  flex-wrap: wrap;
+}
+
+.pl-signup__field {
+  flex: 1;
+  min-width: 180px;
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--pl-ghost-ink);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(75, 58, 143, 0.2);
+}
+
+.pl-signup__field::placeholder {
+  color: var(--pl-paper-3);
+}
+
+.pl-signup__field:focus {
+  outline: none;
+  border-color: var(--pl-accent);
+  background: #fff;
+}
+
+/* Success and error come from Shopify's form object; the prototype's form
+   posted nowhere and so had neither. */
+.pl-signup__msg {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--pl-paper-2);
+}
+
+.pl-signup__msg--error {
+  color: var(--pl-accent-2);
+}

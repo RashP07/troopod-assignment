@@ -1,0 +1,151 @@
+{{ 'purelane-categories.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane bundle categories — `purelane-homepage.html:1466-1476`.
+
+  Four glass cards, each a link into the combos rail with a product shot
+  standing in for the category.
+{%- endcomment -%}
+
+{%- assign anchor = section.settings.anchor | default: section.id | handleize -%}
+
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  <div class="pl-wrap">
+    {%- if section.settings.kicker != blank or section.settings.heading != blank -%}
+      <div class="pl-head pl-rv">
+        {%- if section.settings.kicker != blank -%}
+          <span class="pl-kicker">{{ section.settings.kicker }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pl-d2">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="pl-cats">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign picked = block.settings.product
+            assign delay = forloop.index0 | modulo: 4
+            assign art = forloop.index0 | modulo: 3 | plus: 1
+            assign fallback = 'purelane-bottle-placeholder-' | append: art | append: '.svg'
+          -%}
+          <a
+            class="pl-glass pl-cat pl-rv{% if delay > 0 %} pl-rv-d{{ delay }}{% endif %}"
+            href="{{ block.settings.link | default: '#' }}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="pl-cat__shot">
+              {%- if picked.featured_media -%}
+                {{
+                  picked.featured_media
+                  | image_url: height: 540
+                  | image_tag: widths: '180, 260, 380', sizes: '(min-width: 900px) 22vw, 44vw', loading: 'lazy', alt: ''
+                }}
+              {%- else -%}
+                <img src="{{ fallback | asset_url }}" alt="" width="380" height="1177" loading="lazy" decoding="async">
+              {%- endif -%}
+            </span>
+            <span class="pl-cat__txt">
+              {%- if block.settings.heading != blank -%}
+                <span class="pl-cat__title">{{ block.settings.heading }}</span>
+              {%- endif -%}
+              {%- if block.settings.note != blank -%}
+                <span class="pl-cat__note">{{ block.settings.note }}</span>
+              {%- endif -%}
+            </span>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_categories.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.purelane_shared.settings.kicker.label",
+      "default": "Bundle categories"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.purelane_shared.settings.heading.label",
+      "default": "Find the right bundle for you"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "categories",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "t:sections.purelane_categories.blocks.category.name",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.purelane_categories.blocks.category.settings.product.label",
+          "info": "t:sections.purelane_categories.blocks.category.settings.product.info"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.purelane_shared.settings.heading.label",
+          "default": "Kitchen bundle"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "t:sections.purelane_categories.blocks.category.settings.note.label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.purelane_combos.settings.cta_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_categories.presets.name",
+      "blocks": [
+        { "type": "category", "settings": { "heading": "Kitchen bundle", "note": "Grease, dishes & more" } },
+        { "type": "category", "settings": { "heading": "Bathroom bundle", "note": "Deep clean & disinfect" } },
+        { "type": "category", "settings": { "heading": "Laundry bundle", "note": "Softer, fresher wash" } },
+        { "type": "category", "settings": { "heading": "Hard water bundle", "note": "Melt away limescale" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

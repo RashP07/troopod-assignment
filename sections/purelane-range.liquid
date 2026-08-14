@@ -1,0 +1,148 @@
+{{ 'purelane-range.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane range strip — `purelane-homepage.html:1436-1450`.
+
+  A single shelf of every bottle. The prototype hardcodes ten; here it reads a
+  collection, so the shelf is whatever the merchant is actually selling and
+  cannot drift out of date. Falls back to placeholder bottles before a
+  collection is picked.
+{%- endcomment -%}
+
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign products = section.settings.collection.products
+  assign limit = section.settings.products_to_show
+-%}
+
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  <div class="pl-wrap">
+    <div class="pl-glass pl-range pl-rv">
+      <div class="pl-range__head">
+        <div>
+          {%- if section.settings.kicker != blank -%}
+            <span class="pl-kicker">{{ section.settings.kicker }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pl-d2">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.lede != blank -%}
+          <p class="pl-body-s pl-range__lede">{{ section.settings.lede }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="pl-range__strip">
+        <div class="pl-range__row">
+          {%- for product in products limit: limit -%}
+            <span class="pl-range__item">
+              {%- if product.featured_media -%}
+                {{
+                  product.featured_media
+                  | image_url: height: 400
+                  | image_tag: widths: '120, 180, 260', sizes: '132px', loading: 'lazy', alt: product.title
+                }}
+              {%- endif -%}
+            </span>
+          {%- else -%}
+            {%- for i in (1..10) -%}
+              {%- assign art = i | minus: 1 | modulo: 3 | plus: 1 -%}
+              <span class="pl-range__item">
+                <img
+                  src="{{ 'purelane-bottle-placeholder-' | append: art | append: '.svg' | asset_url }}"
+                  alt=""
+                  aria-hidden="true"
+                  width="380"
+                  height="1177"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </span>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- if section.settings.hint != blank -%}
+        <p class="pl-range__hint">{{ section.settings.hint }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_range.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.purelane_shared.settings.kicker.label",
+      "default": "The full range"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.purelane_shared.settings.heading.label",
+      "default": "Every room, one shelf"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "t:sections.purelane_hero.settings.lede.label"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:sections.purelane_product_grid.settings.collection.label"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 10,
+      "label": "t:sections.purelane_range.settings.products_to_show.label"
+    },
+    {
+      "type": "text",
+      "id": "hint",
+      "label": "t:sections.purelane_range.settings.hint.label",
+      "default": "Swipe to see the full shelf"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "range",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_range.presets.name"
+    }
+  ]
+}
+{% endschema %}

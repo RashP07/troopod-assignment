@@ -57,29 +57,43 @@
         "r2": {
           "type": "rail_link",
           "settings": {
-            "label": "Reviews",
-            "anchor": "reviews"
+            "label": "Ingredients",
+            "anchor": "ingredients"
           }
         },
         "r3": {
           "type": "rail_link",
           "settings": {
-            "label": "Combos",
-            "anchor": "combos"
+            "label": "How it works",
+            "anchor": "how"
           }
         },
         "r4": {
+          "type": "rail_link",
+          "settings": {
+            "label": "Proof",
+            "anchor": "proof"
+          }
+        },
+        "r5": {
           "type": "rail_link",
           "settings": {
             "label": "Bundles",
             "anchor": "bundles"
           }
         },
-        "r5": {
+        "r6": {
           "type": "rail_link",
           "settings": {
             "label": "Shop",
             "anchor": "shop"
+          }
+        },
+        "r7": {
+          "type": "rail_link",
+          "settings": {
+            "label": "Reviews",
+            "anchor": "reviews"
           }
         }
       },
@@ -88,7 +102,9 @@
         "r2",
         "r3",
         "r4",
-        "r5"
+        "r5",
+        "r6",
+        "r7"
       ],
       "settings": {
         "brand_name": "Purelane",

@@ -1,0 +1,100 @@
+{{ 'purelane-trust.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane trust bar — `purelane-homepage.html:1478-1503`.
+
+  Four claims in one glass strip. The prototype hard-wraps each label with a
+  `<br>`; that is kept as a per-block newline so the merchant controls where
+  the break falls, rather than the theme guessing.
+{%- endcomment -%}
+
+{%- assign anchor = section.settings.anchor | default: section.id | handleize -%}
+
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  <div class="pl-wrap">
+    {%- if section.blocks.size > 0 -%}
+      <div class="pl-glass pl-trust pl-rv">
+        {%- for block in section.blocks -%}
+          <div class="pl-trust__item" {{ block.shopify_attributes }}>
+            {%- render 'purelane-icon', icon: block.settings.icon, width: 1.5 -%}
+            <span>{{ block.settings.text | newline_to_br }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_trust.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "trust",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "claim",
+      "name": "t:sections.purelane_trust.blocks.claim.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.purelane_shared.settings.icon.label",
+          "options": [
+            { "value": "leaf", "label": "t:sections.purelane_shared.settings.icon.options__leaf.label" },
+            { "value": "box", "label": "t:sections.purelane_trust.blocks.claim.settings.icon.options__box.label" },
+            { "value": "heart", "label": "t:sections.purelane_pillars.blocks.pillar.settings.icon.options__heart.label" },
+            { "value": "globe", "label": "t:sections.purelane_trust.blocks.claim.settings.icon.options__globe.label" },
+            { "value": "shield", "label": "t:sections.purelane_shared.settings.icon.options__shield.label" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.purelane_trust.blocks.claim.settings.text.label",
+          "info": "t:sections.purelane_trust.blocks.claim.settings.text.info",
+          "default": "Plant derived\nformulas"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_trust.presets.name",
+      "blocks": [
+        { "type": "claim", "settings": { "icon": "leaf", "text": "Plant derived\nformulas" } },
+        { "type": "claim", "settings": { "icon": "box", "text": "Recyclable\npackaging" } },
+        { "type": "claim", "settings": { "icon": "heart", "text": "Safe for\nkids & pets" } },
+        { "type": "claim", "settings": { "icon": "globe", "text": "Made in\nIndia" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Purelane — the full range
+   `purelane-homepage.html:1436-1450`, styles at `:335-341`, light theme
+   at `:706`.
+   ========================================================================== */
+
+.pl-range {
+  padding: clamp(20px, 2.6vw, 30px);
+}
+
+.pl-range__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pl-range__head .pl-d2 {
+  max-width: 20ch;
+}
+
+.pl-range__head .pl-kicker + .pl-d2 {
+  margin-top: 10px;
+}
+
+.pl-range__lede {
+  max-width: 34ch;
+  margin-bottom: 4px;
+}
+
+/* The prototype's row is a flex row that simply overflows on narrow screens
+   with nothing to scroll it — the last bottles are unreachable below about
+   900px. It scrolls here, which is also what the "Swipe to see the full
+   shelf" hint under it already promises. */
+.pl-range__strip {
+  margin: 10px 0 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pl-range__strip::-webkit-scrollbar {
+  display: none;
+}
+
+.pl-range__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 150px;
+}
+
+.pl-range__item {
+  flex: 0 0 auto;
+}
+
+.pl-range__item img,
+.pl-range__item svg {
+  height: 132px;
+  width: auto;
+  filter: drop-shadow(0 9px 14px rgba(0, 74, 66, 0.14));
+}
+
+.pl-range__item:nth-child(even) img,
+.pl-range__item:nth-child(even) svg {
+  height: 118px;
+}
+
+/* Kept as the prototype has it, which is unstyled. `.striphint` is declared
+   nowhere except `@media (max-width: 760px) { .striphint { display: block } }`
+   — a no-op on a paragraph — so it renders as plain left-aligned body text
+   rather than as the small uppercase cue `.swipecue` gets in the combos rail
+   directly above it. That reads as an oversight in the file, but styling it
+   would be a redesign, so it is a question for design. */
+.pl-range__hint {
+  margin-top: 0;
+}

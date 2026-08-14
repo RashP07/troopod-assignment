@@ -72,7 +72,14 @@
           }
         }
       },
-      "block_order": ["promise_1", "promise_2", "promise_3", "slide_1", "slide_2", "slide_3"],
+      "block_order": [
+        "promise_1",
+        "promise_2",
+        "promise_3",
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
       "settings": {
         "heading": "Clean\nThat\nLasts",
         "accent_text": "Lasts",
@@ -142,7 +149,13 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3", "review_4", "review_5"],
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ],
       "settings": {
         "kicker": "That's what they said",
         "show_stars": true,
@@ -210,7 +223,13 @@
           }
         }
       },
-      "block_order": ["combo_1", "combo_2", "combo_3", "combo_4", "combo_5"],
+      "block_order": [
+        "combo_1",
+        "combo_2",
+        "combo_3",
+        "combo_4",
+        "combo_5"
+      ],
       "settings": {
         "kicker": "Pre-built to save you money",
         "heading": "Best selling combos",
@@ -262,7 +281,11 @@
           }
         }
       },
-      "block_order": ["tier_1", "tier_2", "tier_3"],
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ],
       "settings": {
         "kicker": "Build your bundle",
         "heading": "One box. Every room.",
@@ -283,7 +306,401 @@
         "scene": 3,
         "anchor": "shop"
       }
+    },
+    "ingredients": {
+      "type": "purelane-ingredients",
+      "blocks": {
+        "i1": {
+          "type": "ingredient",
+          "settings": {
+            "art": "coconut",
+            "name": "Coconut",
+            "note": "Plant-derived cleansers that lift grease"
+          }
+        },
+        "i2": {
+          "type": "ingredient",
+          "settings": {
+            "art": "orange-peel",
+            "name": "Orange peel",
+            "note": "Natural degreaser and fresh citrus lift"
+          }
+        },
+        "i3": {
+          "type": "ingredient",
+          "settings": {
+            "art": "soap-nut",
+            "name": "Soap nut",
+            "note": "A traditional plant foaming agent"
+          }
+        },
+        "i4": {
+          "type": "ingredient",
+          "settings": {
+            "art": "neem",
+            "name": "Neem",
+            "note": "Time-tested antibacterial from the tree"
+          }
+        },
+        "i5": {
+          "type": "ingredient",
+          "settings": {
+            "art": "lemongrass",
+            "name": "Lemongrass",
+            "note": "Clean fragrance with nothing synthetic"
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5"
+      ],
+      "settings": {
+        "heading": "Sourced from nature",
+        "show_rule": true,
+        "scene": 2,
+        "anchor": "ingredients"
+      }
+    },
+    "how": {
+      "type": "purelane-pillars",
+      "blocks": {
+        "p1": {
+          "type": "pillar",
+          "settings": {
+            "icon": "bubbles",
+            "heading": "Less scrubbing",
+            "body": "A foaming formulation. The foam clings to grease and lifts it, so you wipe instead of scrub.",
+            "cta_label": "Learn more",
+            "cta_link": "#shop"
+          }
+        },
+        "p2": {
+          "type": "pillar",
+          "settings": {
+            "icon": "shield",
+            "heading": "Clean ingredients",
+            "body": "No sulphates, no chlorine, no synthetic fragrance. Nothing on the label you would not want near your food.",
+            "cta_label": "Learn more",
+            "cta_link": "#ingredients"
+          }
+        },
+        "p3": {
+          "type": "pillar",
+          "settings": {
+            "icon": "heart",
+            "heading": "Safe around everyone",
+            "body": "Gentle on hands, safe around kids and pets, and it leaves no toxic residue on the surfaces you touch every day.",
+            "cta_label": "Learn more",
+            "cta_link": "#proof"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "scene": 2,
+        "anchor": "how"
+      }
+    },
+    "proof": {
+      "type": "purelane-proof",
+      "blocks": {
+        "r1": {
+          "type": "product",
+          "settings": {
+            "product": "foaming-kitchen-cleaner",
+            "name": "Kitchen cleaner",
+            "note": "Foam lifts grease, no scrubbing"
+          }
+        },
+        "r2": {
+          "type": "product",
+          "settings": {
+            "product": "tap-cleaner-limescale-remover",
+            "name": "Tap & limescale",
+            "note": "Melts hard water stains"
+          }
+        },
+        "r3": {
+          "type": "product",
+          "settings": {
+            "product": "non-toxic-laundry-detergent",
+            "name": "Laundry detergent",
+            "note": "Tough on odour, soft on fabric"
+          }
+        },
+        "r4": {
+          "type": "product",
+          "settings": {
+            "product": "non-toxic-toilet-cleaner",
+            "name": "Toilet cleaner",
+            "note": "Kills 99.9% of germs"
+          }
+        },
+        "r5": {
+          "type": "product",
+          "settings": {
+            "product": "natural-herbal-floor-cleaner",
+            "name": "Floor cleaner",
+            "note": "Neem powered, pet safe"
+          }
+        },
+        "r6": {
+          "type": "product",
+          "settings": {
+            "product": "organic-dishwash-gel",
+            "name": "Dishwash gel",
+            "note": "Cuts grease, kind to hands"
+          }
+        },
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "99.9%",
+            "label": "Germ kill",
+            "note": "Tested against germs and bacteria"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "0%",
+            "label": "Sulphates",
+            "note": "No SLS, chlorine or parabens"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Plant based",
+            "note": "Cleansers derived from plants"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "value": "4.8",
+            "label": "Rated",
+            "note": "Across 8,000+ verified reviews"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "kicker": "Why it works",
+        "heading": "Tough on grime.\nGentle on everything else.",
+        "body": "Every formula is built on plant-derived cleansers and essential oils. It behaves exactly like the cleaner you are used to, minus the things you never signed up for.",
+        "cta_label": "See the ingredient list",
+        "cta_link": "#ingredients",
+        "rotate_interval": 2.6,
+        "scene": 3,
+        "anchor": "proof"
+      }
+    },
+    "range": {
+      "type": "purelane-range",
+      "settings": {
+        "kicker": "The full range",
+        "heading": "Every room, one shelf",
+        "lede": "Floors, taps, kitchen, laundry, bathroom and hands. Fourteen plant-based formulas that replace every harsh bottle under your sink.",
+        "collection": "bestsellers",
+        "products_to_show": 10,
+        "hint": "Swipe to see the full shelf",
+        "scene": 3,
+        "anchor": "range"
+      }
+    },
+    "whybundles": {
+      "type": "purelane-why-bundles",
+      "blocks": {
+        "w1": {
+          "type": "reason",
+          "settings": {
+            "icon": "rupee",
+            "heading": "Save up to 45%",
+            "note": "Versus buying the same products separately"
+          }
+        },
+        "w2": {
+          "type": "reason",
+          "settings": {
+            "icon": "check-square",
+            "heading": "One flat price",
+            "note": "No calculators, no comparing carts"
+          }
+        },
+        "w3": {
+          "type": "reason",
+          "settings": {
+            "icon": "star-outline",
+            "heading": "Curated by experts",
+            "note": "Products picked to work well together"
+          }
+        },
+        "w4": {
+          "type": "reason",
+          "settings": {
+            "icon": "truck",
+            "heading": "Free shipping always",
+            "note": "Included on every bundle, all India"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ],
+      "settings": {
+        "kicker": "The smarter way to shop",
+        "heading": "Why bundles beat buying single",
+        "scene": 4,
+        "anchor": "whybundles"
+      }
+    },
+    "categories": {
+      "type": "purelane-categories",
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "product": "foaming-kitchen-cleaner",
+            "heading": "Kitchen bundle",
+            "note": "Grease, dishes & more",
+            "link": "#combos"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "product": "non-toxic-toilet-cleaner",
+            "heading": "Bathroom bundle",
+            "note": "Deep clean & disinfect",
+            "link": "#combos"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "product": "non-toxic-laundry-detergent",
+            "heading": "Laundry bundle",
+            "note": "Softer, fresher wash",
+            "link": "#combos"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "product": "tap-cleaner-limescale-remover",
+            "heading": "Hard water bundle",
+            "note": "Melt away limescale",
+            "link": "#combos"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "kicker": "Bundle categories",
+        "heading": "Find the right bundle for you",
+        "scene": 4,
+        "anchor": "categories"
+      }
+    },
+    "trust": {
+      "type": "purelane-trust",
+      "blocks": {
+        "t1": {
+          "type": "claim",
+          "settings": {
+            "icon": "leaf",
+            "text": "Plant derived\nformulas"
+          }
+        },
+        "t2": {
+          "type": "claim",
+          "settings": {
+            "icon": "box",
+            "text": "Recyclable\npackaging"
+          }
+        },
+        "t3": {
+          "type": "claim",
+          "settings": {
+            "icon": "heart",
+            "text": "Safe for\nkids & pets"
+          }
+        },
+        "t4": {
+          "type": "claim",
+          "settings": {
+            "icon": "globe",
+            "text": "Made in\nIndia"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "scene": 4,
+        "anchor": "trust"
+      }
+    },
+    "signup": {
+      "type": "purelane-signup",
+      "settings": {
+        "kicker": "Join the Purelane Club",
+        "heading": "Get ₹100 off your first bundle",
+        "lede": "Plus first access to new launches and restocks.",
+        "placeholder": "your@email.com",
+        "cta_label": "Get my ₹100 off",
+        "scene": 4,
+        "anchor": "signup"
+      }
     }
   },
-  "order": ["backdrop", "hero", "reviews", "combos", "bundles", "shop"]
+  "order": [
+    "backdrop",
+    "hero",
+    "reviews",
+    "ingredients",
+    "how",
+    "proof",
+    "combos",
+    "bundles",
+    "shop",
+    "range",
+    "whybundles",
+    "categories",
+    "trust",
+    "signup"
+  ]
 }

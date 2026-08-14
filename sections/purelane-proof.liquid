@@ -1,0 +1,267 @@
+{{ 'purelane-proof.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'purelane-reveal.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'purelane-proof.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Purelane proof panel — `purelane-homepage.html:1138-1178`.
+
+  Copy and CTA on the left, a rotating product on the right, a four-up stat
+  strip across the bottom. Two block types feed it: `product` for the rotator,
+  `stat` for the strip.
+{%- endcomment -%}
+
+{%- liquid
+  assign anchor = section.settings.anchor | default: section.id | handleize
+  assign rotator = section.blocks | where: 'type', 'product'
+  assign stats = section.blocks | where: 'type', 'stat'
+-%}
+
+<div class="pl pl-sec" id="{{ anchor }}" data-pl-scene="{{ section.settings.scene }}">
+  <div class="pl-wrap">
+    <div class="pl-glass pl-sec-pad pl-rv">
+      <div class="pl-proof">
+        <div class="pl-proof__copy">
+          {%- if section.settings.kicker != blank -%}
+            <span class="pl-kicker">{{ section.settings.kicker }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pl-d2">{{ section.settings.heading | newline_to_br }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.body != blank -%}
+            <p class="pl-body-s pl-proof__body">{{ section.settings.body }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.cta_label != blank -%}
+            <a class="pl-btn pl-btn--primary" href="{{ section.settings.cta_link | default: '#' }}">
+              {{ section.settings.cta_label }}
+              {%- render 'purelane-icon', icon: 'arrow' -%}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if rotator.size > 0 -%}
+          {%- comment -%}
+            Decorative: every product named here is a real card further down
+            the page, so the rotator is hidden from assistive tech rather than
+            announced as it cycles.
+          {%- endcomment -%}
+          <purelane-rotator
+            class="pl-glass2 pl-rot"
+            data-pl-interval="{{ section.settings.rotate_interval | times: 1000 }}"
+            aria-hidden="true"
+          >
+            <div class="pl-rot__frame">
+              {%- for block in rotator -%}
+                {%- liquid
+                  assign picked = block.settings.product
+                  assign label = block.settings.name | default: picked.title
+                  assign art = forloop.index0 | modulo: 3 | plus: 1
+                  assign fallback = 'purelane-bottle-placeholder-' | append: art | append: '.svg'
+                  assign item_class = 'pl-rot__item'
+                  if forloop.first
+                    assign item_class = 'pl-rot__item pl-is-on'
+                  endif
+                -%}
+                {%- comment -%}
+                  The caption text rides on the item rather than in a parallel
+                  array in the script, so a reordered or deleted block cannot
+                  desynchronise the name from the image. `image_tag` cannot
+                  carry hyphenated data attributes, hence the wrapper.
+                {%- endcomment -%}
+                <span
+                  class="{{ item_class }}"
+                  data-pl-rot-item
+                  data-pl-name="{{ label | escape }}"
+                  data-pl-note="{{ block.settings.note | escape }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if picked.featured_media -%}
+                    {{
+                      picked.featured_media
+                      | image_url: height: 600
+                      | image_tag:
+                        widths: '180, 260, 400',
+                        sizes: '(min-width: 900px) 20vw, 60vw',
+                        loading: 'lazy',
+                        alt: ''
+                    }}
+                  {%- else -%}
+                    <img src="{{ fallback | asset_url }}" alt="" width="380" height="1177" loading="lazy" decoding="async">
+                  {%- endif -%}
+                </span>
+              {%- endfor -%}
+            </div>
+
+            <div class="pl-rot__cap">
+              {%- assign first = rotator | first -%}
+              <b class="pl-rot__name" data-pl-rot-name>
+                {{- first.settings.name | default: first.settings.product.title -}}
+              </b>
+              <span class="pl-rot__note" data-pl-rot-note>{{ first.settings.note }}</span>
+            </div>
+
+            {%- if rotator.size > 1 -%}
+              <div class="pl-rot__dots">
+                {%- for block in rotator -%}
+                  <i class="pl-rot__dot{% if forloop.first %} pl-is-on{% endif %}" data-pl-rot-dot></i>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </purelane-rotator>
+        {%- endif -%}
+      </div>
+
+      {%- if stats.size > 0 -%}
+        <div class="pl-glass2 pl-stats">
+          {%- for block in stats -%}
+            <div class="pl-stat" {{ block.shopify_attributes }}>
+              <div class="pl-stat__ring">{{ block.settings.value }}</div>
+              {%- if block.settings.label != blank -%}
+                <h3 class="pl-stat__label">{{ block.settings.label }}</h3>
+              {%- endif -%}
+              {%- if block.settings.note != blank -%}
+                <p class="pl-stat__note">{{ block.settings.note }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.purelane_proof.name",
+  "tag": "section",
+  "class": "pl-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:sections.purelane_shared.settings.kicker.label",
+      "default": "Why it works"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "t:sections.purelane_shared.settings.heading.label",
+      "info": "t:sections.purelane_proof.settings.heading.info",
+      "default": "Tough on grime.\nGentle on everything else."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "t:sections.purelane_proof.settings.body.label"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "t:sections.purelane_combos.settings.cta_label.label",
+      "default": "See the ingredient list"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "t:sections.purelane_combos.settings.cta_link.label"
+    },
+    {
+      "type": "range",
+      "id": "rotate_interval",
+      "min": 1.5,
+      "max": 6,
+      "step": 0.1,
+      "unit": "s",
+      "default": 2.6,
+      "label": "t:sections.purelane_proof.settings.rotate_interval.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.purelane_shared.settings.anchor_header.content"
+    },
+    {
+      "type": "range",
+      "id": "scene",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.purelane_shared.settings.scene.label",
+      "info": "t:sections.purelane_shared.settings.scene.info"
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "t:sections.purelane_shared.settings.anchor.label",
+      "default": "proof",
+      "info": "t:sections.purelane_shared.settings.anchor.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "t:sections.purelane_proof.blocks.product.name",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.purelane_proof.blocks.product.settings.product.label"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "t:sections.purelane_proof.blocks.product.settings.name.label",
+          "info": "t:sections.purelane_proof.blocks.product.settings.name.info"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "t:sections.purelane_proof.blocks.product.settings.note.label"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "t:sections.purelane_proof.blocks.stat.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "t:sections.purelane_proof.blocks.stat.settings.value.label",
+          "default": "99.9%"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:sections.purelane_shared.settings.heading.label",
+          "default": "Germ kill"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "t:sections.purelane_proof.blocks.stat.settings.note.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.purelane_proof.presets.name",
+      "blocks": [
+        { "type": "product", "settings": { "name": "Kitchen cleaner", "note": "Foam lifts grease, no scrubbing" } },
+        { "type": "product", "settings": { "name": "Tap & limescale", "note": "Melts hard water stains" } },
+        { "type": "product", "settings": { "name": "Laundry detergent", "note": "Tough on odour, soft on fabric" } },
+        { "type": "stat", "settings": { "value": "99.9%", "label": "Germ kill", "note": "Tested against germs and bacteria" } },
+        { "type": "stat", "settings": { "value": "0%", "label": "Sulphates", "note": "No SLS, chlorine or parabens" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "Plant based", "note": "Cleansers derived from plants" } },
+        { "type": "stat", "settings": { "value": "4.8", "label": "Rated", "note": "Across 8,000+ verified reviews" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,12 +1,16 @@
 {%- comment -%}
   Purelane icon set.
 
-  The prototype pasted the same five SVGs inline dozens of times — the leaf
-  alone appeared 20+ times. One snippet keeps them consistent and keeps the
-  rendered HTML small.
+  The prototype pasted the same SVGs inline dozens of times — the leaf alone
+  appeared 20+ times. One snippet keeps them consistent and keeps the rendered
+  HTML small. The set grew when the pillars, why-bundles and trust sections
+  landed; the five botanical illustrations are not here, since they are
+  drawings used once each — see `purelane-ingredient-art`.
 
   Accepts:
-    icon   - leaf | shield | no-chem | arrow | check | star (required)
+    icon   - leaf | shield | no-chem | arrow | check | star
+             | bubbles | heart | rupee | check-square | star-outline
+             | truck | box | globe (required)
     width  - stroke width, defaults per icon
     class  - extra class on the <svg>
 
@@ -57,5 +61,32 @@
       <path d="M5 12h13m-5-6 6 6-6 6" />
     {%- when 'check' -%}
       <path d="m5 13 4 4L19 7" />
+    {%- when 'bubbles' -%}
+      <circle cx="8" cy="8.5" r="3.2" />
+      <circle cx="16.4" cy="6.6" r="2.2" />
+      <circle cx="15" cy="13" r="2.8" />
+      <circle cx="8.6" cy="15.6" r="2.1" />
+      <path d="M4 21h16" />
+    {%- when 'heart' -%}
+      <path d="M12 20s-7-4.4-7-9.4A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.6c0 5-7 9.4-7 9.4Z" />
+    {%- when 'rupee' -%}
+      <path d="M12 3v18" />
+      <path d="M16.5 7.2C15.6 6 14 5.4 12 5.4c-2.4 0-4 1.1-4 2.9 0 2 1.7 2.7 4.2 3.3 2.7.6 4.3 1.4 4.3 3.4 0 1.9-1.7 3.1-4.5 3.1-2.2 0-3.8-.7-4.8-2" />
+    {%- when 'check-square' -%}
+      <rect x="4" y="4" width="16" height="16" rx="3.4" />
+      <path d="m8.4 12.2 2.4 2.4 4.8-5" />
+    {%- when 'star-outline' -%}
+      <path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.7l5.8-.8Z" />
+    {%- when 'truck' -%}
+      <path d="M2.6 16.4V7.2h10.2v9.2" />
+      <path d="M12.8 10.4h4l3.6 3.2v2.8h-7.6" />
+      <circle cx="6.6" cy="18" r="1.9" />
+      <circle cx="16.6" cy="18" r="1.9" />
+    {%- when 'box' -%}
+      <path d="M4 8h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" />
+      <path d="M4 8 6.5 3h11L20 8M9.5 12h5" />
+    {%- when 'globe' -%}
+      <circle cx="12" cy="12" r="8.6" />
+      <path d="M3.4 12h17.2M12 3.4c2.4 2.4 3.6 5.4 3.6 8.6S14.4 18.2 12 20.6c-2.4-2.4-3.6-5.4-3.6-8.6S9.6 5.8 12 3.4Z" />
   {%- endcase -%}
 </svg>

@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Purelane — bundle categories
+   `purelane-homepage.html:1466-1476`, styles at `:559-570`, light theme
+   at `:753-754`.
+   ========================================================================== */
+
+.pl-cats {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 900px) {
+  .pl-cats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pl-cat {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s var(--pl-ease);
+}
+
+.pl-cat:hover {
+  transform: translateY(-5px);
+}
+
+.pl-cat__shot {
+  height: 194px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 14px 12px 0;
+  position: relative;
+}
+
+.pl-cat__shot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(110% 80% at 50% 6%, rgba(255, 255, 255, 0.66), rgba(236, 230, 247, 0.3) 58%, transparent 80%);
+}
+
+.pl-cat__shot img,
+.pl-cat__shot svg {
+  position: relative;
+  height: 176px;
+  width: auto;
+  filter: drop-shadow(0 10px 15px rgba(0, 74, 66, 0.14));
+}
+
+.pl-cat__txt {
+  padding: 14px 16px 18px;
+  border-top: 1px solid rgba(75, 58, 143, 0.11);
+}
+
+/* The prototype's card uses `<h4>` and `<p>`; inside an `<a>` these are
+   spans, so they need the block display those tags would have brought. */
+.pl-cat__title {
+  display: block;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--pl-surface);
+  margin-bottom: 5px;
+}
+
+.pl-cat__note {
+  display: block;
+  font-size: 11.8px;
+  color: var(--pl-paper-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-cat,
+  .pl-cat:hover {
+    transition: none;
+    transform: none;
+  }
+}

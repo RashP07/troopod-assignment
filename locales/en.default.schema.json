@@ -469,11 +469,11 @@
           "label": "Change every"
         },
         "heading_utilities": {
-         "content": "Utilities"
+          "content": "Utilities"
         },
         "paragraph": {
           "content": "Appear only on large screens"
-        },                     
+        },
         "show_social": {
           "label": "Social media icons",
           "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
@@ -537,7 +537,7 @@
         },
         "header_layout": {
           "content": "Layout"
-        },            
+        },
         "desktop_layout": {
           "label": "Layout",
           "options__1": {
@@ -628,9 +628,9 @@
           "default": "Collections",
           "label": "Heading"
         },
-         "header_layout": {
-        "content": "Layout"
-        },        
+        "header_layout": {
+          "content": "Layout"
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -712,17 +712,17 @@
           "label": "Heading"
         },
         "layout_header": {
-        "content": "Layout"
+          "content": "Layout"
         },
         "text_header": {
-        "content": "Text"
-        },        
+          "content": "Text"
+        },
         "blog": {
           "label": "Blog"
         },
         "post_limit": {
           "label": "Post count"
-        }, 
+        },
         "columns_desktop": {
           "label": "Columns"
         },
@@ -748,7 +748,7 @@
       "name": "Featured collection",
       "settings": {
         "header_text": {
-        "content": "Text"
+          "content": "Text"
         },
         "title": {
           "label": "Heading",
@@ -776,8 +776,8 @@
           "content": "Collection layout"
         },
         "header_mobile": {
-        "content": "Mobile layout"
-        },                 
+          "content": "Mobile layout"
+        },
         "collection": {
           "label": "Collection"
         },
@@ -1196,7 +1196,7 @@
           "options__4": {
             "label": "Large"
           }
-          },
+        },
         "content": {
           "content": "Content"
         },
@@ -1301,9 +1301,9 @@
         "buttons": {
           "name": "Buttons",
           "settings": {
-          "header_1":{
-          "content": "Button 1"
-          },
+            "header_1": {
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -1315,7 +1315,7 @@
             "button_style_secondary_1": {
               "label": "Outline style"
             },
-            "header_2":{
+            "header_2": {
               "content": "Button 2"
             },
             "button_label_2": {
@@ -1339,12 +1339,12 @@
     "image-with-text": {
       "name": "Image with text",
       "settings": {
-      "header": {
-      "content": "Content"
-      },
-      "header_colors": {
-      "content": "Colors" 
-      },
+        "header": {
+          "content": "Content"
+        },
+        "header_colors": {
+          "content": "Colors"
+        },
         "image": {
           "label": "Image"
         },
@@ -1515,15 +1515,15 @@
         "image": {
           "label": "Image"
         },
-        "header":{
-        "content": "Image"
+        "header": {
+          "content": "Image"
         },
-        "header_2":{
-        "content": "Content"
+        "header_2": {
+          "content": "Content"
         },
-        "header_3":{
-        "content": "Colors"
-        },        
+        "header_3": {
+          "content": "Colors"
+        },
         "image_height": {
           "options__1": {
             "label": "Adapt to image"
@@ -2296,7 +2296,7 @@
             },
             "pairing_2": {
               "label": "Pairing 2"
-            },            
+            },
             "icon_2": {
               "label": "Icon"
             },
@@ -2308,8 +2308,8 @@
               "default": "Heading"
             },
             "pairing_3": {
-            "label": "Pairing 3"
-            },             
+              "label": "Pairing 3"
+            },
             "icon_3": {
               "label": "Icon"
             },
@@ -2424,7 +2424,7 @@
           "options__2": {
             "label": "2"
           }
-        },        
+        },
         "image_ratio": {
           "label": "Image ratio",
           "options__1": {
@@ -2476,10 +2476,10 @@
         },
         "header_layout": {
           "content": "Layout"
-        },                            
+        },
         "header_button": {
           "content": "Button"
-        }, 
+        },
         "image_width": {
           "label": "Width",
           "options__1": {
@@ -2686,7 +2686,7 @@
         },
         "content_header": {
           "content": "Content"
-        },        
+        },
         "desktop_content_alignment": {
           "options__1": {
             "label": "Left"
@@ -2918,8 +2918,8 @@
           "name": "Buttons",
           "settings": {
             "header_button1": {
-            "content": "Button 1"
-            }, 
+              "content": "Button 1"
+            },
             "button_label_1": {
               "label": "Label",
               "info": "Leave blank to hide",
@@ -2933,7 +2933,7 @@
             },
             "header_button2": {
               "content": "Button 2"
-            },             
+            },
             "button_label_2": {
               "label": "Label",
               "info": "Leave label blank to hide"
@@ -3073,7 +3073,7 @@
               "default": "Tell your brand's story through images"
             },
             "header_button": {
-            "content": "Button"      
+              "content": "Button"
             },
             "button_label": {
               "label": "Label",
@@ -3087,7 +3087,7 @@
               "label": "Outline style"
             },
             "box_align": {
-              "label": "Content position",              
+              "label": "Content position",
               "options__1": {
                 "label": "Top left"
               },
@@ -3117,7 +3117,7 @@
               }
             },
             "header_layout": {
-            "content": "Layout"                 
+              "content": "Layout"
             },
             "show_text_box": {
               "label": "Container"
@@ -3138,11 +3138,11 @@
               "label": "Overlay opacity"
             },
             "header_text": {
-            "content": "Text"      
+              "content": "Text"
             },
             "header_colors": {
-            "content": "Colors"                 
-            },            
+              "content": "Colors"
+            },
             "text_alignment_mobile": {
               "label": "Mobile content alignment",
               "options__1": {
@@ -3203,8 +3203,8 @@
           "label": "Container color scheme"
         },
         "section_color_scheme": {
-        "label": "Section color scheme"
-        },        
+          "label": "Section color scheme"
+        },
         "open_first_collapsible_row": {
           "label": "Open first row"
         },
@@ -3422,15 +3422,27 @@
         },
         "icon": {
           "label": "Icon",
-          "options__leaf": { "label": "Leaf" },
-          "options__shield": { "label": "Shield" },
-          "options__no_chem": { "label": "No chemicals" },
-          "options__check": { "label": "Tick" }
+          "options__leaf": {
+            "label": "Leaf"
+          },
+          "options__shield": {
+            "label": "Shield"
+          },
+          "options__no_chem": {
+            "label": "No chemicals"
+          },
+          "options__check": {
+            "label": "Tick"
+          }
         },
         "discount_as": {
           "label": "Show saving as",
-          "options__percent": { "label": "Percentage" },
-          "options__amount": { "label": "Amount" }
+          "options__percent": {
+            "label": "Percentage"
+          },
+          "options__amount": {
+            "label": "Amount"
+          }
         },
         "scene": {
           "label": "Scene",
@@ -3891,6 +3903,224 @@
       },
       "presets": {
         "name": "Purelane footer"
+      }
+    },
+    "purelane_ingredients": {
+      "name": "Purelane ingredients",
+      "settings": {},
+      "blocks": {
+        "ingredient": {
+          "name": "Ingredient",
+          "settings": {
+            "art": {
+              "label": "Illustration",
+              "options__coconut": {
+                "label": "Coconut"
+              },
+              "options__orange": {
+                "label": "Orange peel"
+              },
+              "options__soap_nut": {
+                "label": "Soap nut"
+              },
+              "options__neem": {
+                "label": "Neem"
+              },
+              "options__lemongrass": {
+                "label": "Lemongrass"
+              }
+            },
+            "name": {
+              "label": "Name"
+            },
+            "note": {
+              "label": "Note"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane ingredients"
+      }
+    },
+    "purelane_pillars": {
+      "name": "Purelane pillars",
+      "settings": {
+        "heading": {
+          "info": "Optional. The prototype's row has no heading above it."
+        }
+      },
+      "blocks": {
+        "pillar": {
+          "name": "Pillar",
+          "settings": {
+            "icon": {
+              "options__bubbles": {
+                "label": "Bubbles"
+              },
+              "options__heart": {
+                "label": "Heart"
+              }
+            },
+            "body": {
+              "label": "Body"
+            },
+            "cta_label": {
+              "label": "Link label"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane pillars"
+      }
+    },
+    "purelane_proof": {
+      "name": "Purelane proof",
+      "settings": {
+        "heading": {
+          "info": "One line per row."
+        },
+        "body": {
+          "label": "Body"
+        },
+        "rotate_interval": {
+          "label": "Rotate every"
+        }
+      },
+      "blocks": {
+        "product": {
+          "name": "Rotator product",
+          "settings": {
+            "product": {
+              "label": "Product"
+            },
+            "name": {
+              "label": "Caption",
+              "info": "Defaults to the product title."
+            },
+            "note": {
+              "label": "Caption note"
+            }
+          }
+        },
+        "stat": {
+          "name": "Stat",
+          "settings": {
+            "value": {
+              "label": "Figure"
+            },
+            "note": {
+              "label": "Note"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane proof"
+      }
+    },
+    "purelane_range": {
+      "name": "Purelane range",
+      "settings": {
+        "products_to_show": {
+          "label": "Products to show"
+        },
+        "hint": {
+          "label": "Scroll hint"
+        }
+      },
+      "presets": {
+        "name": "Purelane range"
+      }
+    },
+    "purelane_why_bundles": {
+      "name": "Purelane why bundles",
+      "settings": {},
+      "blocks": {
+        "reason": {
+          "name": "Reason",
+          "settings": {
+            "icon": {
+              "options__rupee": {
+                "label": "Rupee"
+              },
+              "options__check_square": {
+                "label": "Tick box"
+              },
+              "options__star": {
+                "label": "Star"
+              },
+              "options__truck": {
+                "label": "Truck"
+              }
+            },
+            "note": {
+              "label": "Note"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane why bundles"
+      }
+    },
+    "purelane_categories": {
+      "name": "Purelane categories",
+      "settings": {},
+      "blocks": {
+        "category": {
+          "name": "Category",
+          "settings": {
+            "product": {
+              "label": "Product shot",
+              "info": "Stands in for the category. Falls back to a placeholder bottle."
+            },
+            "note": {
+              "label": "Note"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane categories"
+      }
+    },
+    "purelane_trust": {
+      "name": "Purelane trust bar",
+      "settings": {},
+      "blocks": {
+        "claim": {
+          "name": "Claim",
+          "settings": {
+            "icon": {
+              "options__box": {
+                "label": "Box"
+              },
+              "options__globe": {
+                "label": "Globe"
+              }
+            },
+            "text": {
+              "label": "Text",
+              "info": "One line per row; the prototype breaks each claim over two."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Purelane trust bar"
+      }
+    },
+    "purelane_signup": {
+      "name": "Purelane signup",
+      "settings": {
+        "placeholder": {
+          "label": "Field placeholder"
+        }
+      },
+      "presets": {
+        "name": "Purelane signup"
       }
     }
   }
