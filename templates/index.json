@@ -177,7 +177,12 @@
             "flag": "Most popular",
             "includes": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
             "fine_print": "Inclusive of all taxes · COD available",
-            "featured": false
+            "featured": false,
+            "products": [
+              "foaming-kitchen-cleaner",
+              "organic-dishwash-gel",
+              "tap-cleaner-limescale-remover"
+            ]
           }
         },
         "combo_2": {
@@ -187,7 +192,12 @@
             "thumbnails": 3,
             "includes": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
             "fine_print": "Inclusive of all taxes · COD available",
-            "featured": false
+            "featured": false,
+            "products": [
+              "non-toxic-laundry-detergent",
+              "washing-machine-cleaner-descaler",
+              "gentle-hydrating-handwash"
+            ]
           }
         },
         "combo_3": {
@@ -199,7 +209,14 @@
             "save_label": "Biggest saving",
             "includes": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
             "fine_print": "Inclusive of all taxes · COD available",
-            "featured": true
+            "featured": true,
+            "products": [
+              "foaming-kitchen-cleaner",
+              "non-toxic-laundry-detergent",
+              "natural-herbal-floor-cleaner",
+              "non-toxic-toilet-cleaner",
+              "gentle-hydrating-handwash"
+            ]
           }
         },
         "combo_4": {
@@ -209,7 +226,12 @@
             "thumbnails": 3,
             "includes": "Includes: Toilet Cleaner, Tap Cleaner & Magic Eraser. A complete bathroom refresh in one box.",
             "fine_print": "Inclusive of all taxes · COD available",
-            "featured": false
+            "featured": false,
+            "products": [
+              "non-toxic-toilet-cleaner",
+              "tap-cleaner-limescale-remover",
+              "magic-eraser"
+            ]
           }
         },
         "combo_5": {
@@ -219,7 +241,11 @@
             "thumbnails": 2,
             "includes": "Includes: Tap Cleaner & Toilet Cleaner. A quick, focused fix for hard water stains across the home.",
             "fine_print": "Inclusive of all taxes · COD available",
-            "featured": false
+            "featured": false,
+            "products": [
+              "tap-cleaner-limescale-remover",
+              "non-toxic-toilet-cleaner"
+            ]
           }
         }
       },
@@ -255,7 +281,11 @@
             "features": "Pick any two products\nFree shipping across India",
             "highlight": false,
             "cta_label": "Build this box",
-            "cta_link": "#shop"
+            "cta_link": "#shop",
+            "products": [
+              "foaming-kitchen-cleaner",
+              "organic-dishwash-gel"
+            ]
           }
         },
         "tier_2": {
@@ -266,7 +296,12 @@
             "features": "Pick any three products\nCovers kitchen and laundry\nFree shipping across India",
             "highlight": true,
             "cta_label": "Build this box",
-            "cta_link": "#shop"
+            "cta_link": "#shop",
+            "products": [
+              "foaming-kitchen-cleaner",
+              "organic-dishwash-gel",
+              "tap-cleaner-limescale-remover"
+            ]
           }
         },
         "tier_3": {
@@ -277,7 +312,14 @@
             "features": "Pick any five products\nEvery room in one order\nFree shipping across India",
             "highlight": false,
             "cta_label": "Build this box",
-            "cta_link": "#shop"
+            "cta_link": "#shop",
+            "products": [
+              "foaming-kitchen-cleaner",
+              "organic-dishwash-gel",
+              "tap-cleaner-limescale-remover",
+              "non-toxic-laundry-detergent",
+              "natural-herbal-floor-cleaner"
+            ]
           }
         }
       },
