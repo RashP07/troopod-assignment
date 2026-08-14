@@ -39,6 +39,7 @@
           "type": "slide",
           "settings": {
             "label": "Single bottle",
+            "product_1": "foaming-kitchen-cleaner",
             "discount_as": "percent"
           }
         },
@@ -46,6 +47,8 @@
           "type": "slide",
           "settings": {
             "label": "Any 2 products",
+            "product_1": "foaming-kitchen-cleaner",
+            "product_2": "organic-dishwash-gel",
             "discount_as": "amount"
           }
         },
@@ -53,6 +56,9 @@
           "type": "slide",
           "settings": {
             "label": "Any 3 products",
+            "product_1": "foaming-kitchen-cleaner",
+            "product_2": "organic-dishwash-gel",
+            "product_3": "tap-cleaner-limescale-remover",
             "discount_as": "amount"
           }
         }
@@ -263,6 +269,7 @@
         "heading": "Loved by 30,000 homes",
         "show_rule": true,
         "source": "collection",
+        "collection": "bestsellers",
         "products_to_show": 8,
         "scene": 3,
         "anchor": "shop"

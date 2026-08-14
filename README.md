@@ -39,7 +39,10 @@ assets/purelane-{hero,backdrop,header,reveal}.js
 ```
 
 Every Purelane file is prefixed. Nothing in Dawn is modified except `templates/index.json`,
-`sections/header-group.json`, and additive entries in the two locale files.
+`sections/header-group.json`, one added stylesheet link in `layout/theme.liquid`
+(sections cannot link a shared stylesheet without breaking their own
+cascade), and additive entries in the
+two locale files.
 Dawn's own `header.liquid` and `announcement-bar.liquid` are left in place,
 unused, so the stock header is one setting away.
 
@@ -67,20 +70,29 @@ shopify theme push                                      # deploy
 2. **Custom data** — create the metafields and metaobjects in
    [`docs/metafields.md`](docs/metafields.md).
 3. **Products** — at least eight, using the images in `docs/seed-images/`.
+   Name each one after its image file, so the handle matches: an image called
+   `foaming-kitchen-cleaner.svg` belongs to "Foaming Kitchen Cleaner", handle
+   `foaming-kitchen-cleaner`. `templates/index.json` refers to three of those
+   handles, so the hero fills itself in once they exist.
    Price ₹200, compare-at ₹299 (this produces the "33% off" badge; the figure
    is calculated, never stored). The brief asks for three deliberate edge
    cases, and the card handles each:
    - one **sold out** → disabled CTA, "Sold out" pill, dimmed image
    - one with **no image** → placeholder box of the same aspect ratio, no shift
    - one with a **very long title** → clamped so it can't unbalance the grid
-4. **Collection** — group the eight into e.g. `bestsellers` and pick it in the
-   product grid section.
+4. **Collection** — group the eight into `bestsellers`; the product grid section
+   is already pointed at that handle.
 5. **Bundle products** — one per combo and per bundle tier. These supply the
    real bundle price; the saving is derived from the included products'
    compare-at total.
-6. **Homepage** — `templates/index.json` already lays out backdrop → hero →
-   reviews → combos → bundles → grid with the prototype's copy. Pick products
-   in the theme editor.
+6. **Navigation** — the header renders the store's `main-menu`. Replace Dawn's
+   default (Home / Catalog / Contact) with Home, Ingredients, How it works,
+   Shop, Bundles, pointing at `#`-anchors on the homepage.
+7. **Homepage** — `templates/index.json` already lays out backdrop → hero →
+   reviews → combos → bundles → grid with the prototype's copy, and pre-fills the
+   handles from steps 3 and 4. Anything still unpicked — combo and bundle
+   products — renders onboarding placeholders until you pick it in the theme
+   editor, so the page never looks broken mid-setup.
 
 ## Notes
 

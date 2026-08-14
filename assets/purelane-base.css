@@ -466,6 +466,25 @@
   opacity: 0.62;
 }
 
+/* ---------- Dawn's empty-element reset ----------
+   Dawn hides every childless element site-wide (`div:empty`, `p:empty` and
+   nine others — `base.css:483`). Several Purelane elements are empty by
+   design: the four backdrop scenes and the vignette are pure painted
+   gradients, and the carousel's live region only gets text once the slide
+   changes. Dawn's rule is (0,1,1), so each override has to carry two
+   class-level selectors to outrank it. Any new painted-only or
+   filled-by-script element needs a line here. */
+.pl-scenes .pl-scene,
+.pl-scenes .pl-vig {
+  display: block;
+}
+
+/* Empty is this element's normal state: it must stay in the accessibility
+   tree so the status message is announced when script writes into it. */
+.pl-visually-hidden:empty {
+  display: block;
+}
+
 /* ---------- utilities ---------- */
 .pl-visually-hidden {
   position: absolute !important;
