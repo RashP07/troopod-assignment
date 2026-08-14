@@ -224,33 +224,39 @@
    same baseline.
 
    Caps allow for the negative margins that overlap the group: three bottles
-   are 3 x 38% minus two 8% overlaps = 98% of the slide, two are 2 x 52% minus
-   one = 96%. Percentage margins resolve against the slide width, not the
-   bottle's own. */
+   are 3 x 31% minus two 8% overlaps = 77% of the slide, two are 2 x 44% minus
+   one = 80%. Percentage margins resolve against the slide width, not the
+   bottle's own.
+
+   The caps sit below the space available on purpose. Sized to fill it, a
+   product photo of ordinary proportions reads as oversized against the
+   prototype's slim bottles, which are the shape the composition was drawn
+   around. The prototype's own art is narrower than every cap, so it is
+   unaffected either way. */
 .pl-hero__slide[data-pl-count='1'] .pl-hero__bottle--1 {
   height: 100%;
-  max-width: 100%;
+  max-width: 74%;
   z-index: 3;
 }
 
 /* two products */
 .pl-hero__slide[data-pl-count='2'] .pl-hero__bottle--1 {
   height: 80%;
-  max-width: 52%;
+  max-width: 44%;
   margin-right: -8%;
   z-index: 1;
 }
 
 .pl-hero__slide[data-pl-count='2'] .pl-hero__bottle--2 {
   height: 97%;
-  max-width: 52%;
+  max-width: 44%;
   z-index: 3;
 }
 
 /* three products: tight combo grouping */
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--1 {
   height: 75%;
-  max-width: 38%;
+  max-width: 31%;
   margin-right: -8%;
   z-index: 1;
   order: 1;
@@ -258,14 +264,14 @@
 
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--3 {
   height: 97%;
-  max-width: 38%;
+  max-width: 31%;
   z-index: 3;
   order: 2;
 }
 
 .pl-hero__slide[data-pl-count='3'] .pl-hero__bottle--2 {
   height: 79%;
-  max-width: 38%;
+  max-width: 31%;
   margin-left: -8%;
   z-index: 2;
   order: 3;
