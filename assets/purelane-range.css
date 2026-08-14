@@ -69,6 +69,35 @@
   height: 118px;
 }
 
+/* `purelane-homepage.html:597-606`. The prototype tightens the whole shelf
+   below 760px: shorter bottles, a shorter row, wider gaps, and a strip that
+   runs 14px past the glass panel's padding on each side so the shelf reads as
+   continuing off-screen rather than stopping short of the edge. The scroller
+   itself is already unconditional above, for the reason given there. */
+@media (max-width: 760px) {
+  .pl-range__strip {
+    margin: 6px -14px 0;
+    padding: 0 14px 6px;
+    overflow-y: hidden;
+  }
+
+  .pl-range__row {
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 132px;
+  }
+
+  .pl-range__item img,
+  .pl-range__item svg {
+    height: 116px;
+  }
+
+  .pl-range__item:nth-child(even) img,
+  .pl-range__item:nth-child(even) svg {
+    height: 104px;
+  }
+}
+
 /* Kept as the prototype has it, which is unstyled. `.striphint` is declared
    nowhere except `@media (max-width: 760px) { .striphint { display: block } }`
    — a no-op on a paragraph — so it renders as plain left-aligned body text
