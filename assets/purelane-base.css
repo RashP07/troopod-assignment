@@ -28,8 +28,13 @@
   font-weight: 500 800;
   font-style: normal;
   font-display: swap;
+  /* U+20B9 (₹) is deliberately carved out of the currency block below.
+     Neither subset contains that glyph — it falls back to a system font, as it
+     does in the prototype — but declaring it here made the browser fetch both
+     `-ext` files (100 KB) to discover that, on every page load, for the four ₹
+     on the homepage. It was the only character on the page inside this range. */
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+20AD-20B8, U+20BA-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Purelane Text';
@@ -46,8 +51,13 @@
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
+  /* U+20B9 (₹) is deliberately carved out of the currency block below.
+     Neither subset contains that glyph — it falls back to a system font, as it
+     does in the prototype — but declaring it here made the browser fetch both
+     `-ext` files (100 KB) to discover that, on every page load, for the four ₹
+     on the homepage. It was the only character on the page inside this range. */
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
-    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+20AD-20B8, U+20BA-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /* ---------- tokens ---------- */
@@ -142,6 +152,26 @@
   outline: 2px solid var(--pl-leaf);
   outline-offset: 3px;
   border-radius: 6px;
+}
+
+/* ---------- below-fold rendering ----------
+   Fourteen sections of glass, blur and gradients cost real Style & Layout
+   time on a mid-range phone even while off screen. `content-visibility: auto`
+   lets the browser skip layout and paint for a section until it approaches the
+   viewport. `contain-intrinsic-size: auto <length>` gives it a placeholder
+   height first time and then remembers the real one, so the scrollbar does not
+   jump and CLS stays at zero.
+
+   The hero opts out: it holds the LCP element, and skipping its first layout
+   would delay exactly the paint being measured. */
+.pl-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+.pl-section--eager {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }
 
 /* ---------- layout shell ---------- */
