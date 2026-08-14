@@ -54,9 +54,8 @@ assets/purelane-{hero,backdrop,header,proof,reveal}.js
 
 Every Purelane file is prefixed. Nothing in Dawn is modified except `templates/index.json`,
 `sections/header-group.json`, `sections/footer-group.json`, one added stylesheet link in `layout/theme.liquid`
-(sections cannot link a shared stylesheet without breaking their own
-cascade), and additive entries in the
-two locale files.
+(sections cannot link a shared stylesheet without breaking their own cascade),
+and additive entries in the two locale files.
 Dawn's own `header.liquid`, `announcement-bar.liquid` and `footer.liquid` are left
 in place, unused, so the stock chrome is one setting away.
 
