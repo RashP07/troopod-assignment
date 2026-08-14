@@ -83,8 +83,14 @@
 }
 
 /* ---------- figures ---------- */
+/* The box comes from the prototype's `.qty` rule, which was written for a PDP
+   quantity stepper and lands on the tier figures too. It reads as a source bug
+   — the label sits on its own bottom border — but it is in the design being
+   matched, so it is reproduced rather than corrected. */
 .pl-tier__qty {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(75, 58, 143, 0.18);
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 52px;
   line-height: 0.9;

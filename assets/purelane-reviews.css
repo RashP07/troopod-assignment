@@ -27,7 +27,7 @@
 }
 
 .pl-revhead__agg b {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-size: 16px;
   color: var(--pl-accent);
   letter-spacing: 0;
@@ -83,7 +83,7 @@
 }
 
 .pl-rcard__title {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;

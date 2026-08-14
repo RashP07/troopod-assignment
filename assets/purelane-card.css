@@ -53,7 +53,7 @@
 }
 
 .pl-card__title {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-size: 13.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -103,7 +103,7 @@
 }
 
 .pl-price__now {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-weight: 700;
   color: var(--pl-surface);
 }
@@ -166,10 +166,15 @@
 }
 
 /* tier variant: accent-coloured, used on the bundle cards */
+/* The prototype separates these with two things, not one: `margin-left: 8px` on
+   the <s>, plus a literal space in `₹349 <s>₹598</s>`. That space measures
+   5.13px in Outfit at 27px/700, so the gap has to absorb both. The other price
+   rows (card, combo, tag) have no text node between their children, so they
+   correctly carry the declared margin alone. */
 .pl-price--tier {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   margin: 16px 0 4px;
-  gap: 8px;
+  gap: 13.13px;
 }
 
 .pl-price--tier .pl-price__now {

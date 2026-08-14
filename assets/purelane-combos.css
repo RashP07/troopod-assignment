@@ -80,14 +80,23 @@
   filter: drop-shadow(0 5px 8px rgba(0, 74, 66, 0.13));
 }
 
+/* The stack tile has its own fill in the prototype (flat, not the gradient the
+   shared placeholder carries) and a fixed icon size rather than a percentage. */
 .pl-stack__item .pl-pimg--placeholder {
   height: 66px;
   width: 44px;
   border-radius: 9px;
   aspect-ratio: auto;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px dashed rgba(75, 58, 143, 0.26);
 }
 
-.pl-stack__item span {
+.pl-stack__item .pl-pimg--placeholder svg {
+  width: 17px;
+  height: 17px;
+}
+
+.pl-stack__label {
   display: block;
   font-size: 8.6px;
   line-height: 1.32;
@@ -113,7 +122,7 @@
 }
 
 .pl-combo__title {
-  font-family: 'Purelane Display', 'Outfit', system-ui, sans-serif;
+  font-family: 'Purelane Display', 'Outfit', sans-serif;
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;

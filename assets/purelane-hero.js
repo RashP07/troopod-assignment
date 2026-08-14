@@ -16,6 +16,9 @@
   'use strict';
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  /* The prototype gated its pointer parallax to pointer-driven widths; the
+     backdrop layers use the same query, so the two stay in step. */
+  var desktop = window.matchMedia('(min-width: 1024px)');
 
   class PurelaneHeroStage extends HTMLElement {
     connectedCallback() {
@@ -27,6 +30,8 @@
       this.index = 0;
       this.timer = null;
       this.paused = false;
+      this.mouseX = 0;
+      this.mouseY = 0;
 
       if (this.slides.length < 2) return;
 
@@ -39,6 +44,7 @@
       this.onEnter = this.stop.bind(this);
       this.onLeave = this.play.bind(this);
       this.onScroll = this.onScroll.bind(this);
+      this.onMouseMove = this.onMouseMove.bind(this);
       this.paint = this.paint.bind(this);
 
       this.dots.forEach(function (dot) {
@@ -69,6 +75,9 @@
 
       if (!reduce.matches) {
         window.addEventListener('scroll', this.onScroll, { passive: true });
+        if (desktop.matches) {
+          window.addEventListener('mousemove', this.onMouseMove, { passive: true });
+        }
       }
     }
 
@@ -78,6 +87,7 @@
       if (this.visible) this.visible.disconnect();
       if (this.frame) cancelAnimationFrame(this.frame);
       window.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('mousemove', this.onMouseMove);
     }
 
     goTo(next, announce) {
@@ -152,11 +162,22 @@
       if (!this.frame) this.frame = requestAnimationFrame(this.paint);
     }
 
+    /* The event carries the coordinates, so this reads nothing off the DOM
+       either — normalised to -1..1 about the viewport centre, as the backdrop
+       layers do, so the product and the water behind it track together. */
+    onMouseMove(event) {
+      this.mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+      this.mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+      this.onScroll();
+    }
+
     /* Parallax: writes only, no layout reads, one rAF per frame. */
     paint() {
       this.frame = null;
       var progress = Math.min((window.scrollY || window.pageYOffset) / 700, 1);
-      this.style.transform = 'translate3d(0,' + (-progress * 54).toFixed(2) + 'px,0) scale(' + (1 - progress * 0.06).toFixed(3) + ')';
+      var shiftX = this.mouseX * -16;
+      var shiftY = -progress * 54 + this.mouseY * -10;
+      this.style.transform = 'translate3d(' + shiftX.toFixed(2) + 'px,' + shiftY.toFixed(2) + 'px,0) scale(' + (1 - progress * 0.06).toFixed(3) + ')';
       this.style.opacity = (1 - progress * 0.55).toFixed(3);
     }
   }

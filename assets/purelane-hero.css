@@ -291,18 +291,28 @@
   color: var(--pl-leaf);
 }
 
-/* ---------- stage controls ---------- */
+/* ---------- stage controls ----------
+   The dot row must stay centred on the prototype's positions even though the
+   build adds a pause control the prototype never had. The control's footprint
+   is therefore cancelled on both axes, and the three lengths that make up that
+   footprint are declared here once so the compensation cannot drift out of
+   sync with them. */
 .pl-hero__controls {
+  --pl-dot-gap: 7px;
+  --pl-dot-size: 6px;
+  --pl-toggle-size: 22px;
+  --pl-toggle-offset: 5px;
+
   display: flex;
-  gap: 7px;
+  gap: var(--pl-dot-gap);
   justify-content: center;
   align-items: center;
   margin-top: 8px;
 }
 
 .pl-hero__dot {
-  width: 6px;
-  height: 6px;
+  width: var(--pl-dot-size);
+  height: var(--pl-dot-size);
   padding: 0;
   border-radius: 50%;
   background: rgba(75, 58, 143, 0.22);
@@ -321,11 +331,16 @@
 
 /* WCAG 2.2.2: the prototype auto-advanced with no way to stop it. */
 .pl-hero__toggle {
-  width: 22px;
-  height: 22px;
-  /* Negative block margins keep the row the height of the dots (6px), so adding
-     the control does not shift the stage above it. */
-  margin: -8px 0 -8px 5px;
+  width: var(--pl-toggle-size);
+  height: var(--pl-toggle-size);
+  /* Block: keep the row the height of the dots, so adding the control does not
+     shift the stage above it. Inline: cancel everything the control adds to the
+     row — its own width, the flex gap before it, and its leading margin — so the
+     dots stay centred and the control hangs off the end. Both derive from the
+     variables above rather than from precomputed literals. */
+  margin-block: calc((var(--pl-dot-size) - var(--pl-toggle-size)) / 2);
+  margin-left: var(--pl-toggle-offset);
+  margin-right: calc(-1 * (var(--pl-toggle-size) + var(--pl-dot-gap) + var(--pl-toggle-offset)));
   display: grid;
   place-items: center;
   border-radius: 50%;

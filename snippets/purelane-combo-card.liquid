@@ -112,7 +112,7 @@
               {%- render 'purelane-icon', icon: 'leaf' -%}
             </span>
           {%- endif -%}
-          <span>{{ item.metafields.custom.benefit.value | default: item.title }}</span>
+          <span class="pl-stack__label">{{ item.metafields.custom.benefit.value | default: item.title }}</span>
         </span>
       {%- endfor -%}
     </div>
